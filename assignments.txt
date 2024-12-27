@@ -1,0 +1,7 @@
+Game class - Reyansh
+Car logic - Adwaith
+Obstacles - Siva
+Race track - Reyansh
+Leaderboard - Siva
+Sound effects - Adwaith
+Hardware controller - ALL
