@@ -1,0 +1,3 @@
+user storis for Obstacles
+random Obstacles should appear in some time
+there should be random varios objects
