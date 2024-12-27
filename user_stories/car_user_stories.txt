@@ -1,0 +1,8 @@
+user stories.txt
+
+Car should appear at the screen when game starts
+Car should have a set speed of 0 - 250 miles an hour
+Car should have a sound when driving
+Car should move side to side in all three lanes
+Car should bounce back if  hitting sidewalls of the road
+Car should decrease speed by 50 miles an hour if hitting an obstacle
