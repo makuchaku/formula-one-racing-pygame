@@ -3,8 +3,8 @@ import random
 from game import *
 
 width_or_height = 500
-screen_width = width_or_height
-screen_height = width_or_height
+screen_width = 800
+screen_height = 600
 
 window = pygame.display.set_mode((screen_width, screen_height))
 

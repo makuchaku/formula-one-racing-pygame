@@ -1,14 +1,24 @@
 import pygame
 from tank import *
 from rocket import *
+from divider import *
 import random
 import time
 
 
 width_or_height = 500
-screen_width = width_or_height
-screen_height = width_or_height
+screen_width = 800
+screen_height = 600
 pygame.font.init()
+
+
+line_image = pygame.image.load('../assets/sprites.png')
+line_1_x = 400
+line_1_y = 20
+line_1_change = 1
+
+
+
 
 window = pygame.display.set_mode((screen_width, screen_height))
 window.fill('light blue')
@@ -83,6 +93,13 @@ class Game:
                                     # pygame.mixer.music.load("explosion.wav")
                                     # pygame.mixer.music.play(loops=1)
                                     self.play_sound('../assets/explosion.wav')
+                
+            divider.y += line_1_change
+            if divider.y > 600:
+                divider.y = 0
+            divider.load_divider()
+
+
 
             self.show_message(str(self.energy_released))
 
