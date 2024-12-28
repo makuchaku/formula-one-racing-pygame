@@ -5,3 +5,4 @@ Race track - Reyansh
 Leaderboard - Siva
 Sound effects - Adwaith
 Hardware controller - ALL
+Sprite class - Reyansh
