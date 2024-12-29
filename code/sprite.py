@@ -17,7 +17,8 @@ class Sprite(pygame.sprite.Sprite):
         self.sprite_x = sprite_x
         self.sprite_y = sprite_y
         self.texture = pygame.image.load('../assets/sprites.png')
-        self.rect = pygame.Rect(width, sprite_position * width, width, width)
+        # self.rect = pygame.Rect(width, sprite_position * width, width, width)
+        self.rect = pygame.Rect(0, sprite_position * width, width, width)
         self.direction_x = 1
         self.direction_y = 1
         self.width = width

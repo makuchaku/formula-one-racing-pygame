@@ -12,7 +12,7 @@ screen_height = 600
 pygame.font.init()
 
 
-line_image = pygame.image.load('../assets/sprites.png')
+line_image = pygame.image.load('../assets/line.png')
 line_1_x = 400
 line_1_y = 20
 line_1_change = 1
@@ -25,8 +25,10 @@ window.fill('light blue')
 
 tanks = []
 rockets = []
+dividers = []
 speed = 1000
 num_sprites = 5
+
 
 class Game:
 
@@ -47,6 +49,22 @@ class Game:
             rocket.load()
             rockets.append(rocket)
 
+        for i in range(4):
+            divider = Divider(self, 400, 20, 64, i)
+            if divider.name == 0:
+                divider.draw_divider(400, 20)
+            elif divider.name == 1:
+                divider.draw_divider(400, 180)
+            elif divider.name == 2:
+                divider.draw_divider(400, 340)
+            elif divider.name == 3:
+                divider.draw_divider(400, 500)
+
+            dividers.append(divider)
+
+
+
+
     # Each iteration is a frame
     def render_frames(self):
         while True:
@@ -63,6 +81,11 @@ class Game:
                 rocket.move()
                 time.sleep(1/speed)
 
+            for divider in dividers:
+                divider.move_y(1)
+                time.sleep(1/speed)
+
+
             # Cleans the screen
             window.fill('light blue')
 
@@ -72,6 +95,9 @@ class Game:
                 # print(tank.sprite_x, tank.sprite_y)
             for rocket in rockets:
                 rocket.draw()
+
+            for divider in dividers:
+                divider.draw_divider(divider.sprite_x, divider.sprite_y)
 
             # Checks for collisions
             all_sprites = tanks + rockets
@@ -93,11 +119,10 @@ class Game:
                                     # pygame.mixer.music.load("explosion.wav")
                                     # pygame.mixer.music.play(loops=1)
                                     self.play_sound('../assets/explosion.wav')
-                
-            divider.y += line_1_change
-            if divider.y > 600:
-                divider.y = 0
-            divider.load_divider()
+            if divider.sprite_y == 600:
+                divider.sprite_y = 0
+                print('resetting to 0')
+    
 
 
 

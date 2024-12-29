@@ -4,6 +4,6 @@ from sprite import *
 class Tank(Sprite):
 
     def __init__(self, game, x, y, width, name):
-        sprite_position = 0
+        sprite_position = 1
         type = 'tank'
         Sprite.__init__(self, game, x, y, width, sprite_position, name, type, 0)
