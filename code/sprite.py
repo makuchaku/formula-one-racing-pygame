@@ -16,7 +16,7 @@ class Sprite(pygame.sprite.Sprite):
         self.game = game
         self.sprite_x = sprite_x
         self.sprite_y = sprite_y
-        self.texture = pygame.image.load('../assets/sprites.png')
+        self.texture = pygame.image.load('./assets/sprites.png')
         self.rect = pygame.Rect(width, sprite_position * width, width, width)
         # self.rect = pygame.Rect(0, sprite_position * width, width, width)
         self.direction_x = 1
@@ -46,7 +46,7 @@ class Sprite(pygame.sprite.Sprite):
         # if self.sprite_y == 0:
         #     self.direction_y = 1
         # if self.sprite_y == screen_height - self.width:
-        #     self.game.play_sound('../assets/punch.wav')
+        #     self.game.play_sound('./assets/punch.wav')
         #     self.direction_y = -1
         # if self.sprite_y
         self.sprite_y += move_y
@@ -61,7 +61,7 @@ class Sprite(pygame.sprite.Sprite):
         if self.sprite_x == 0:
             self.direction_x = 1
         if self.sprite_x == screen_width - self.width:
-            self.game.play_sound('../assets/punch.wav')
+            self.game.play_sound('./assets/punch.wav')
             self.direction_x = -1
             # Sometimes, change the y direction
             if (random.randint(0, 1000) % 2 == 0):
@@ -75,7 +75,7 @@ class Sprite(pygame.sprite.Sprite):
         if self.sprite_y == 0:
             self.direction_y = 1
         if self.sprite_y == screen_height - self.width:
-            self.game.play_sound('../assets/punch.wav')
+            self.game.play_sound('./assets/punch.wav')
             self.direction_y = -1
             # Sometimes, change the x direction
             if (random.randint(0, 1000) % 2 == 0):

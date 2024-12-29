@@ -87,7 +87,7 @@ class Game:
             #                     if sprite.killed == False and other_sprite.killed == False:
             #                         sprite.energy += 1
             #                         other_sprite.energy += 1
-            #                         self.play_sound('../assets/punch.wav')
+            #                         self.play_sound('./assets/punch.wav')
             #                         print('Sprite Energy', sprite.energy, 'Other Sprite Energy', other_sprite.energy)
             #                 elif sprite.type != other_sprite.type:
             #                     if sprite.killed == False and other_sprite.killed == False:
@@ -96,7 +96,7 @@ class Game:
             #                         other_sprite.kill_sprite()
             #                         # pygame.mixer.music.load("explosion.wav")
             #                         # pygame.mixer.music.play(loops=1)
-            #                         self.play_sound('../assets/explosion.wav')
+            #                         self.play_sound('./assets/explosion.wav')
                         
             for divider in dividers:
                 if divider.sprite_y == screen_height:
