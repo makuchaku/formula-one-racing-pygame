@@ -1,5 +1,6 @@
 import pygame
 from tank import *
+from car import *
 from rocket import *
 import random
 import time
@@ -15,6 +16,7 @@ window.fill('light blue')
 
 tanks = []
 rockets = []
+cars = []
 speed = 1000
 num_sprites = 5
 
@@ -32,10 +34,16 @@ class Game:
                         random.randint(10, screen_height), 64, i)
             tank.load()
             tanks.append(tank)
+
             rocket = Rocket(self, random.randint(10, screen_width),
                             random.randint(10, screen_height), 64, i)
             rocket.load()
             rockets.append(rocket)
+
+            car = Car(self, random.randint(10, screen_width),
+                      random.randint(10, screen_height), 64, i)
+            car.load()
+            cars.append(car)
 
     # Each iteration is a frame
     def render_frames(self):
@@ -53,6 +61,10 @@ class Game:
                 rocket.move()
                 time.sleep(1/speed)
 
+            for car in cars:
+                car.move()
+                time.sleep(1/speed)
+
             # Cleans the screen
             window.fill('light blue')
 
@@ -63,8 +75,11 @@ class Game:
             for rocket in rockets:
                 rocket.draw()
 
+            for car in cars:
+                car.draw()
+
             # Checks for collisions
-            all_sprites = tanks + rockets
+            all_sprites = tanks + rockets + cars
             for sprite in all_sprites:
                 for other_sprite in all_sprites:
                     if sprite.name != other_sprite.name:
