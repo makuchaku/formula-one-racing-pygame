@@ -1,5 +1,5 @@
 import pygame
-from tank import *
+from car import *
 from rocket import *
 from divider import *
 import random
@@ -26,6 +26,7 @@ window.fill('light blue')
 tanks = []
 rockets = []
 dividers = []
+cars = []
 speed = 1000
 num_sprites = 5
 
@@ -36,24 +37,17 @@ class Game:
         self.energy_released = 0
         # self.explosion_sound = pygame.mixer.music.load("explosion.wav")
         pygame.mixer.init()
+        self.car = None
 
     # Creates all sprites
     def create_sprites(self):
-        # for i in range(num_sprites):
-            # tank = Tank(self, random.randint(10, screen_width),
-            #             random.randint(10, screen_height), 64, i)
-            # tank.load()
-            # tanks.append(tank)
-            # rocket = Rocket(self, random.randint(10, screen_width),
-            #                 random.randint(10, screen_height), 64, i)
-            # rocket.load()
-            # rockets.append(rocket)
-
+        self.car = Car(self, 500, 300, 64, 1)
+        # self.car.load()
+        
         for i in range(3):
             divider1 = Divider(self, 400, 20, 64, i)
             divider2 = Divider(self, 400, 20, 64, i)
             divider3 = Divider(self, 400, 20, 64, i)
-            
             if i == 0:
                 divider1.draw_divider(1 * 248, 20)
                 divider2.draw_divider(1 * 248, 300)
@@ -62,12 +56,9 @@ class Game:
                 divider1.draw_divider(2 * 248, 20)
                 divider2.draw_divider(2 * 248, 300)
                 divider3.draw_divider(2 * 248, 600)
-    
-
             dividers.append(divider1)
             dividers.append(divider2)
             dividers.append(divider3)
-            print(len(dividers))
 
 
     # Each iteration is a frame
@@ -78,29 +69,18 @@ class Game:
                 break
 
             # Set up all positions
-            for tank in tanks:
-                tank.move()
-                time.sleep(1/speed)
-
-            for rocket in rockets:
-                rocket.move()
-                time.sleep(1/speed)
+            # self.car.move_y(-1)
+            # time.sleep(1/speed)
+            self.car.draw()
 
             for divider in dividers:
                 divider.move_y(1)
                 time.sleep(1/speed)
 
-
             # Cleans the screen
             window.fill('light blue')
 
-            # Draws all objects
-            # for tank in tanks:
-            #     tank.draw()
-            #     # print(tank.sprite_x, tank.sprite_y)
-            # for rocket in rockets:
-            #     rocket.draw()
-
+            # Render dividers
             for divider in dividers:
                 divider.draw_divider(divider.sprite_x, divider.sprite_y)
 
@@ -124,22 +104,17 @@ class Game:
                                     # pygame.mixer.music.load("explosion.wav")
                                     # pygame.mixer.music.play(loops=1)
                                     self.play_sound('../assets/explosion.wav')
-            
-            
+                        
             for divider in dividers:
                 if divider.sprite_y == screen_height:
                     divider.sprite_y = 0
                     print('resetting', divider.name, 'to 0')
-    
-
-
 
             self.show_message(str(self.energy_released))
 
-                        
-
             # Display everything
             pygame.display.update()
+
 
     def stop(self):
         pygame.quit()
