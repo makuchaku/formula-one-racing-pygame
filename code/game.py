@@ -16,6 +16,7 @@ num_sprites = 5
 tanks = []
 rockets = []
 dividers = []
+cars = []
 
 
 class Game:
