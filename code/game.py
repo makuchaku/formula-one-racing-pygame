@@ -58,6 +58,11 @@ class Game:
             car.load()
             cars.append(car)
 
+            car = Car(self, random.randint(10, screen_width),
+                      random.randint(10, screen_height), 64, i)
+            car.load()
+            cars.append(car)
+
     # Each iteration is a frame
     def render_frames(self):
         while True:
