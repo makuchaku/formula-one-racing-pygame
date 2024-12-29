@@ -6,7 +6,7 @@ import random
 import time
 
 
-width_or_height = 500
+# width_or_height = 500
 screen_width = 800
 screen_height = 600
 pygame.font.init()
@@ -49,21 +49,25 @@ class Game:
             # rocket.load()
             # rockets.append(rocket)
 
-        for i in range(2):
-            divider = Divider(self, 400, 20, 64, i)
+        for i in range(3):
+            divider1 = Divider(self, 400, 20, 64, i)
+            divider2 = Divider(self, 400, 20, 64, i)
+            divider3 = Divider(self, 400, 20, 64, i)
+            
             if i == 0:
-                divider.draw_divider(1 * 248, 20)
+                divider1.draw_divider(1 * 248, 20)
+                divider2.draw_divider(1 * 248, 300)
+                divider3.draw_divider(1 * 248, 600)
             else:
-                divider.draw_divider(2 * 248, 20)
-
-            # elif divider.name == 2:
-            #     divider.draw_divider(i * 50, i * 4)
+                divider1.draw_divider(2 * 248, 20)
+                divider2.draw_divider(2 * 248, 300)
+                divider3.draw_divider(2 * 248, 600)
     
 
-            dividers.append(divider)
+            dividers.append(divider1)
+            dividers.append(divider2)
+            dividers.append(divider3)
             print(len(dividers))
-
-
 
 
     # Each iteration is a frame
@@ -121,11 +125,11 @@ class Game:
                                     # pygame.mixer.music.play(loops=1)
                                     self.play_sound('../assets/explosion.wav')
             
+            
             for divider in dividers:
-
-                if divider.sprite_y == 600:
+                if divider.sprite_y == screen_height:
                     divider.sprite_y = 0
-                    print('resetting to 0')
+                    print('resetting', divider.name, 'to 0')
     
 
 
