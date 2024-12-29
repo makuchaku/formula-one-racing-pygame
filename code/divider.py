@@ -16,10 +16,10 @@ class Divider(Sprite):
         type = 'divider'
         self.line_image = pygame.image.load('../assets/line.png')
         self.line_1_change = 1
-
-
         Sprite.__init__(self, game, x, y, width, sprite_position, name, type, 0)
 
 
     def draw_divider(self, x, y):
+        self.sprite_x = x
+        self.sprite_y = y
         window.blit(self.line_image, (x, y))

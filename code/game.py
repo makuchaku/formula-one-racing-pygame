@@ -39,28 +39,29 @@ class Game:
 
     # Creates all sprites
     def create_sprites(self):
-        for i in range(num_sprites):
-            tank = Tank(self, random.randint(10, screen_width),
-                        random.randint(10, screen_height), 64, i)
-            tank.load()
-            tanks.append(tank)
-            rocket = Rocket(self, random.randint(10, screen_width),
-                            random.randint(10, screen_height), 64, i)
-            rocket.load()
-            rockets.append(rocket)
+        # for i in range(num_sprites):
+            # tank = Tank(self, random.randint(10, screen_width),
+            #             random.randint(10, screen_height), 64, i)
+            # tank.load()
+            # tanks.append(tank)
+            # rocket = Rocket(self, random.randint(10, screen_width),
+            #                 random.randint(10, screen_height), 64, i)
+            # rocket.load()
+            # rockets.append(rocket)
 
-        for i in range(4):
+        for i in range(2):
             divider = Divider(self, 400, 20, 64, i)
-            if divider.name == 0:
-                divider.draw_divider(400, 20)
-            elif divider.name == 1:
-                divider.draw_divider(400, 180)
-            elif divider.name == 2:
-                divider.draw_divider(400, 340)
-            elif divider.name == 3:
-                divider.draw_divider(400, 500)
+            if i == 0:
+                divider.draw_divider(1 * 248, 20)
+            else:
+                divider.draw_divider(2 * 248, 20)
+
+            # elif divider.name == 2:
+            #     divider.draw_divider(i * 50, i * 4)
+    
 
             dividers.append(divider)
+            print(len(dividers))
 
 
 
@@ -90,11 +91,11 @@ class Game:
             window.fill('light blue')
 
             # Draws all objects
-            for tank in tanks:
-                tank.draw()
-                # print(tank.sprite_x, tank.sprite_y)
-            for rocket in rockets:
-                rocket.draw()
+            # for tank in tanks:
+            #     tank.draw()
+            #     # print(tank.sprite_x, tank.sprite_y)
+            # for rocket in rockets:
+            #     rocket.draw()
 
             for divider in dividers:
                 divider.draw_divider(divider.sprite_x, divider.sprite_y)
@@ -119,9 +120,12 @@ class Game:
                                     # pygame.mixer.music.load("explosion.wav")
                                     # pygame.mixer.music.play(loops=1)
                                     self.play_sound('../assets/explosion.wav')
-            if divider.sprite_y == 600:
-                divider.sprite_y = 0
-                print('resetting to 0')
+            
+            for divider in dividers:
+
+                if divider.sprite_y == 600:
+                    divider.sprite_y = 0
+                    print('resetting to 0')
     
 
 
