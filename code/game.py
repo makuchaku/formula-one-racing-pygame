@@ -17,8 +17,7 @@ car_move_sprite = 248
 tanks = []
 rockets = []
 dividers = []
-running = True
-
+cars = []
 
 class Game:
 
@@ -55,6 +54,16 @@ class Game:
             dividers.append(divider2)
             dividers.append(divider3)
 
+
+            car = Car(self, random.randint(10, screen_width),
+                      random.randint(10, screen_height), 64, i)
+            car.load()
+            cars.append(car)
+
+            car = Car(self, random.randint(10, screen_width),
+                      random.randint(10, screen_height), 64, i)
+            car.load()
+            cars.append(car)
 
     # Each iteration is a frame
     def render_frames(self):
