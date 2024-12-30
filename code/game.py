@@ -5,7 +5,7 @@ from divider import *
 import random
 import time
 from obstacle import *
-
+import secrets
 # width_or_height = 500
 screen_width = 800
 screen_height = 600
@@ -14,8 +14,8 @@ sprite_box = 64
 speed = 1000
 num_sprites = 5
 car_move_sprite = 248
-
-
+spot = random.randrange(0,3)
+print(spot)
 tanks = []
 rockets = []
 dividers = []
@@ -57,6 +57,9 @@ class Game:
             dividers.append(divider1)
             dividers.append(divider2)
             dividers.append(divider3)
+            
+                # if obstacle == 
+                # self.obstacle2.draw(spot, 300)   
 
 
             car = Car(self, random.randint(10, screen_width),
@@ -98,7 +101,7 @@ class Game:
 
             # Draw obstacles
             self.obstacle1.draw()
-            self.obstacle2.draw()
+            # self.obstacle2.draw()
 
 
             for divider in dividers:
