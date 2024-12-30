@@ -1,5 +1,6 @@
 from sprite import *
 
+# This class creates obstacles
 class Obstacle(Sprite):
 
     def __init__(self, game, x, y, width, name):
