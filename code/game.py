@@ -36,6 +36,7 @@ class Game:
         # Init sound
         pygame.mixer.init()
         self.car = None
+
  
     # Creates all sprites
     def create_sprites(self):
@@ -69,6 +70,7 @@ class Game:
             car.load()
             cars.append(car)
 
+
     # Each iteration is a frame
     def render_frames(self):
         while True:
@@ -77,12 +79,18 @@ class Game:
                 break
             elif event.type == pygame.KEYDOWN:
                 if self.car.sprite_x == 616 and event.key == pygame.K_RIGHT:
+                    self.car.play_sound("no_move")
+                    # Don't move, already at right boundary
                     pass
                 elif self.car.sprite_x == 120 and event.key == pygame.K_LEFT:
+                    self.car.play_sound("no_move")
+                    # Don't move, already at left boundary
                     pass
                 elif event.key == pygame.K_RIGHT and self.car.sprite_x != 616:
+                    self.car.play_sound("move")
                     self.car.move_x(car_move_sprite)
                 elif event.key == pygame.K_LEFT and self.car.sprite_x != 120:
+                    self.car.play_sound("move")
                     self.car.move_x(-car_move_sprite)
 
 
@@ -119,16 +127,14 @@ class Game:
             #                     if sprite.killed == False and other_sprite.killed == False:
             #                         sprite.energy += 1
             #                         other_sprite.energy += 1
-            #                         self.play_sound('./assets/punch.wav')
+            #                         self.play_sound('punch')
             #                         print('Sprite Energy', sprite.energy, 'Other Sprite Energy', other_sprite.energy)
             #                 elif sprite.type != other_sprite.type:
             #                     if sprite.killed == False and other_sprite.killed == False:
             #                         self.energy_released += (sprite.energy + other_sprite.energy)
             #                         sprite.kill_sprite()
             #                         other_sprite.kill_sprite()
-            #                         # pygame.mixer.music.load("explosion.wav")
-            #                         # pygame.mixer.music.play(loops=1)
-            #                         self.play_sound('./assets/explosion.wav')
+            #                         self.play_sound("explosion")
                         
             for divider in dividers:
                 if divider.sprite_y == screen_height:
@@ -145,13 +151,12 @@ class Game:
         pygame.quit()
     
     
-    def play_sound(self, sound):
-         pygame.mixer.Sound(sound).play()
+    def play_sound(self, sound_name):
+        pygame.mixer.Sound('./assets/' + sound_name + '.wav').play()
 
     
     def show_message(self, message):
-        # print('showing text')
-        #sets the font and color
+        # sets the font and color
         font = pygame.font.SysFont('timesnewroman',  60)
         green = 0, 0, 255
         text = font.render(message, True, green)
@@ -160,5 +165,4 @@ class Game:
         textRect.center = (screen_width/2, 50)
         window.blit(text, textRect)
         pygame.display.flip()
-        # time.sleep(3)
-    
+

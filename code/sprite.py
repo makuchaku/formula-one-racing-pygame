@@ -46,7 +46,7 @@ class Sprite(pygame.sprite.Sprite):
         # if self.sprite_y == 0:
         #     self.direction_y = 1
         # if self.sprite_y == screen_height - self.width:
-        #     self.game.play_sound('./assets/punch.wav')
+        #     self.game.play_sound('punch')
         #     self.direction_y = -1
         # if self.sprite_y
         self.sprite_y += move_y
@@ -61,7 +61,7 @@ class Sprite(pygame.sprite.Sprite):
         if self.sprite_x == 0:
             self.direction_x = 1
         if self.sprite_x == screen_width - self.width:
-            self.game.play_sound('./assets/punch.wav')
+            self.game.play_sound('punch')
             self.direction_x = -1
             # Sometimes, change the y direction
             if (random.randint(0, 1000) % 2 == 0):
@@ -75,7 +75,7 @@ class Sprite(pygame.sprite.Sprite):
         if self.sprite_y == 0:
             self.direction_y = 1
         if self.sprite_y == screen_height - self.width:
-            self.game.play_sound('./assets/punch.wav')
+            self.game.play_sound('punch')
             self.direction_y = -1
             # Sometimes, change the x direction
             if (random.randint(0, 1000) % 2 == 0):
@@ -93,22 +93,6 @@ class Sprite(pygame.sprite.Sprite):
             self.sprite_y + self.width > other_sprite.sprite_y):
             print('COLLISION DETECTED BETWEEN', self.name, other_sprite.name)
             return True
-        return False
-    
-    
-    def __check_collision(self, other_sprite):
-        x = self.sprite_x
-        y = self.sprite_y
-        _x = other_sprite.sprite_x
-        _y = other_sprite.sprite_y
-        if(
-            # x is between _x and _x + width
-            (x >= _x and x <= _x + other_sprite.width)
-            # y is between _y and _y + height
-            or (y >= _y and y <= _y + other_sprite.width)
-          ):
-            return True
-        
         return False
     
 
