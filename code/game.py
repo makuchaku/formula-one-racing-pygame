@@ -14,6 +14,7 @@ speed = 1000
 num_sprites = 5
 car_move_sprite = 248
 
+
 tanks = []
 rockets = []
 dividers = []
@@ -94,7 +95,7 @@ class Game:
 
             for divider in dividers:
                 divider.move_y(1)
-                time.sleep(1/speed)
+                self.car.distance_travelled = round(self.car.distance_travelled + 1/100, 2)
 
             # Render dividers
             for divider in dividers:
@@ -126,7 +127,7 @@ class Game:
                     divider.sprite_y = 0
 
 
-            self.show_message(str(self.energy_released))
+            self.show_message(str(self.car.distance_travelled))
 
             # Display everything
             pygame.display.update()
@@ -148,7 +149,7 @@ class Game:
         text = font.render(message, True, green)
         textRect = text.get_rect()
         #puts the score at the center of the screen
-        textRect.center = (50, 50)
+        textRect.center = (screen_width/2, 50)
         window.blit(text, textRect)
         pygame.display.flip()
         # time.sleep(3)
