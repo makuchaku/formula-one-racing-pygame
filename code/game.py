@@ -4,6 +4,7 @@ from rocket import *
 from divider import *
 import random
 import time
+from obstacle import *
 
 # width_or_height = 500
 screen_width = 800
@@ -17,8 +18,6 @@ tanks = []
 rockets = []
 dividers = []
 cars = []
-
-
 class Game:
 
     def __init__(self):
@@ -28,11 +27,12 @@ class Game:
         pygame.font.init()
         window = pygame.display.set_mode((screen_width, screen_height))
         window.fill('light blue')
-
+        self.obstacle1 = Obstacle(self, 0, 0, sprite_box, "Obstacle1") 
+        self.obstacle2 = Obstacle(self, 0, 0, sprite_box, "Obstacle2")
         # Init sound
         pygame.mixer.init()
         self.car = None
-
+ 
     # Creates all sprites
     def create_sprites(self):
         self.car = Car(self, (screen_width-sprite_box)/2, (screen_height-sprite_box), sprite_box, 1)
@@ -79,6 +79,11 @@ class Game:
             # self.car.move_y(-1)
             # time.sleep(1/speed)
             self.car.draw()
+
+            # Draw obstacles
+            self.obstacle1.draw()
+            self.obstacle2.draw()
+
 
             for divider in dividers:
                 divider.move_y(1)
