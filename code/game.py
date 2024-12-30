@@ -6,7 +6,8 @@ import random
 import time
 from obstacle import *
 import secrets
-# width_or_height = 500
+
+
 screen_width = 800
 screen_height = 600
 
@@ -14,8 +15,8 @@ sprite_box = 64
 speed = 1000
 num_sprites = 5
 car_move_sprite = 248
-spot = random.randrange(0,3)
-print(spot)
+
+
 tanks = []
 rockets = []
 dividers = []
@@ -31,8 +32,8 @@ class Game:
         pygame.font.init()
         window = pygame.display.set_mode((screen_width, screen_height))
         window.fill('light blue')
-        self.obstacle1 = Obstacle(self, 0, 0, sprite_box, "Obstacle1") 
-        self.obstacle2 = Obstacle(self, 0, 0, sprite_box, "Obstacle2")
+        self.obstacle1 = Obstacle(self, 0, 300, sprite_box, "Obstacle1") 
+        self.obstacle2 = Obstacle(self, 0, 300, sprite_box, "Obstacle2")
         # Init sound
         pygame.mixer.init()
         self.car = None
@@ -101,7 +102,7 @@ class Game:
 
             # Draw obstacles
             self.obstacle1.draw()
-            # self.obstacle2.draw()
+            self.obstacle2.draw()
 
 
             for divider in dividers:
@@ -136,7 +137,8 @@ class Game:
             for divider in dividers:
                 if divider.sprite_y == screen_height:
                     divider.sprite_y = 0
-
+                    self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
+                    self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
             self.show_message(str(self.car.distance_travelled))
 
