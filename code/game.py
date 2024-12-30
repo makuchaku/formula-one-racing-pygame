@@ -12,10 +12,12 @@ screen_height = 600
 sprite_box = 64
 speed = 1000
 num_sprites = 5
+car_move_sprite = 248
 
 tanks = []
 rockets = []
 dividers = []
+running = True
 
 
 class Game:
@@ -35,6 +37,7 @@ class Game:
     # Creates all sprites
     def create_sprites(self):
         self.car = Car(self, (screen_width-sprite_box)/2, (screen_height-sprite_box), sprite_box, 1)
+    
         
         for i in range(3):
             divider1 = Divider(self, 400, 20, 64, i)
@@ -59,6 +62,17 @@ class Game:
             event = pygame.event.poll()
             if event.type == pygame.QUIT:
                 break
+            elif event.type == pygame.KEYDOWN:
+                if self.car.sprite_x == 616 and event.key == pygame.K_RIGHT:
+                    pass
+                elif self.car.sprite_x == 120 and event.key == pygame.K_LEFT:
+                    pass
+                elif event.key == pygame.K_RIGHT and self.car.sprite_x != 616:
+                    self.car.move_x(car_move_sprite)
+                elif event.key == pygame.K_LEFT and self.car.sprite_x != 120:
+                    self.car.move_x(-car_move_sprite)
+
+
 
             # Cleans the screen
             ## ONLY DO THIS BEFORE RENDERING ALL SPRITES
@@ -101,7 +115,7 @@ class Game:
             for divider in dividers:
                 if divider.sprite_y == screen_height:
                     divider.sprite_y = 0
-                    print('resetting', divider.name, 'to 0')
+
 
             self.show_message(str(self.energy_released))
 
