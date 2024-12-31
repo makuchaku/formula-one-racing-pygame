@@ -16,8 +16,14 @@ class Sprite(pygame.sprite.Sprite):
         self.game = game
         self.sprite_x = sprite_x
         self.sprite_y = sprite_y
-        self.texture = pygame.image.load('./assets/sprites.png')
-        self.rect = pygame.Rect(width, sprite_position * width, width, width)
+        if type == 'car':
+           self.texture = pygame.image.load('./assets/car.png') 
+        elif type == 'obstacle':
+            self.texture = pygame.image.load('./assets/obstacle.png') 
+        else:
+            self.texture = pygame.image.load('./assets/sprites.png')
+            
+        self.rect = pygame.Rect(0, sprite_position * width, width, width)
         # self.rect = pygame.Rect(0, sprite_position * width, width, width)
         self.direction_x = 1
         self.direction_y = 1

@@ -4,7 +4,7 @@ from sprite import *
 class Car(Sprite):
 
     def __init__(self, game, x, y, width, name):
-        sprite_position = 2
+        sprite_position = 0
         type = 'car'
         self.distance_travelled = 0
         Sprite.__init__(self, game, x, y, width, sprite_position, name, type, 0)
