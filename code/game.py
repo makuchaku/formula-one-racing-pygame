@@ -73,18 +73,6 @@ class Game:
             lives.append(life3)
 
 
-            
-                # if obstacle == 
-                # self.obstacle2.draw(spot, 300)   
-
-
-            # car = Car(self, random.randint(10, screen_width),
-                    #   random.randint(10, screen_height), 64,64, i)
-            # car.load()
-            # cars.append(car)
-
-            # car = Car(self, random.randint(10, screen_width),
-                    #   random.randint(10, screen_height), 64, 64, i)
             self.car.load()
             cars.append(self.car)
 
