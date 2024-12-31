@@ -42,7 +42,7 @@ class Game:
  
     # Creates all sprites
     def create_sprites(self):
-        self.car = Car(self, (screen_width-sprite_box)/2, screen_height,sprite_box, sprite_box, 1)
+        self.car = Car(self, (screen_width-sprite_box)/2, screen_height, 1)
     
         
         for i in range(3):
@@ -78,15 +78,15 @@ class Game:
                 # self.obstacle2.draw(spot, 300)   
 
 
-            car = Car(self, random.randint(10, screen_width),
-                      random.randint(10, screen_height), 64,64, i)
-            car.load()
-            cars.append(car)
+            # car = Car(self, random.randint(10, screen_width),
+                    #   random.randint(10, screen_height), 64,64, i)
+            # car.load()
+            # cars.append(car)
 
-            car = Car(self, random.randint(10, screen_width),
-                      random.randint(10, screen_height), 64, 64, i)
-            car.load()
-            cars.append(car)
+            # car = Car(self, random.randint(10, screen_width),
+                    #   random.randint(10, screen_height), 64, 64, i)
+            self.car.load()
+            cars.append(self.car)
 
 
     # Each iteration is a frame
