@@ -49,17 +49,13 @@ class Game:
             divider1 = Divider(self, 400, 20, 64, i)
             divider2 = Divider(self, 400, 20, 64, i)
             divider3 = Divider(self, 400, 20, 64, i)
-            life1 = Life(self, 112, 24, 64, i)
-            life2 = Life(self, 112 - 44, 24, 64, i)
-            life3 = Life(self, 112 - 44 * 2, 24, 64, i)
+            life = Life(self, 112 - 44 * i, 24, 64, i)
 
             if i == 0:
                 divider1.draw_divider(1 * 248, 20)
                 divider2.draw_divider(1 * 248, 300)
                 divider3.draw_divider(1 * 248, 600)
-                life1.draw_heart()
-                life2.draw_heart()
-                life3.draw_heart()
+                life.draw_heart()
 
             else:
                 divider1.draw_divider(2 * 248, 20)
@@ -68,14 +64,11 @@ class Game:
             dividers.append(divider1)
             dividers.append(divider2)
             dividers.append(divider3)
-            lives.append(life1)
-            lives.append(life2)
-            lives.append(life3)
+
 
 
             
-                # if obstacle == 
-                # self.obstacle2.draw(spot, 300)   
+    
 
 
             car = Car(self, random.randint(10, screen_width),
@@ -87,7 +80,8 @@ class Game:
                       random.randint(10, screen_height), 64, i)
             car.load()
             cars.append(car)
-
+        for i in range(self.car.lives):
+            life.draw_heart()
 
     # Each iteration is a frame
     def render_frames(self):
@@ -150,24 +144,25 @@ class Game:
 
                 a_life.draw_heart()
 
-            # # Checks for collisions
-            # all_sprites = tanks + rockets
-            # for sprite in all_sprites:
-            #     for other_sprite in all_sprites:
-            #         if sprite.name != other_sprite.name:
-            #             if sprite.check_and_change_direction(other_sprite) == True:
-            #                 if sprite.type == other_sprite.type:
-            #                     if sprite.killed == False and other_sprite.killed == False:
-            #                         sprite.energy += 1
-            #                         other_sprite.energy += 1
-            #                         self.play_sound('punch')
-            #                         print('Sprite Energy', sprite.energy, 'Other Sprite Energy', other_sprite.energy)
-            #                 elif sprite.type != other_sprite.type:
-            #                     if sprite.killed == False and other_sprite.killed == False:
-            #                         self.energy_released += (sprite.energy + other_sprite.energy)
-            #                         sprite.kill_sprite()
-            #                         other_sprite.kill_sprite()
-            #                         self.play_sound("explosion")
+            # Checks for collisions
+            all_sprites = cars + [self.obstacle1, self.obstacle2]
+            for sprite in all_sprites:
+                for other_sprite in all_sprites:
+                    if sprite.name != other_sprite.name:
+                        if sprite.check_and_change_direction(other_sprite) == True:
+                            # if sprite.type == other_sprite.type:
+                            #     if sprite.killed == False and other_sprite.killed == False:
+                            #         sprite.energy += 1
+                            #         other_sprite.energy += 1
+                            #         self.play_sound('punch')
+                            #         print('Sprite Energy', sprite.energy, 'Other Sprite Energy', other_sprite.energy)
+                            if sprite.type != other_sprite.type:
+                                if sprite.killed == False and other_sprite.killed == False:
+                                    self.car.lives -= 1
+                                    # self.energy_released += (sprite.energy + other_sprite.energy)
+                                    # sprite.kill_sprite()
+                                    # other_sprite.kill_sprite()
+                                    # self.play_sound("explosion")
                         
             for divider in dividers:
                 if divider.sprite_y == screen_height:
