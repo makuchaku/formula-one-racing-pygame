@@ -21,6 +21,7 @@ rockets = []
 dividers = []
 cars = []
 lives = []
+obstacle_start_x = 300
 
 
 class Game:
@@ -32,8 +33,8 @@ class Game:
         pygame.font.init()
         window = pygame.display.set_mode((screen_width, screen_height))
         window.fill('light blue')
-        self.obstacle1 = Obstacle(self, 0, 300, 300, sprite_box, "Obstacle1") 
-        self.obstacle2 = Obstacle(self, 0, 300, 300, sprite_box, "Obstacle2")
+        self.obstacle1 = Obstacle(self, 0, obstacle_start_x, sprite_box, "Obstacle1") 
+        self.obstacle2 = Obstacle(self, 0, obstacle_start_x, sprite_box, "Obstacle2")
         # Init sound
         pygame.mixer.init()
         self.car = None
@@ -133,6 +134,17 @@ class Game:
             # Render dividers
             for divider in dividers:
                 divider.draw_divider(divider.sprite_x, divider.sprite_y)
+
+            if self.obstacle1.sprite_y == screen_height:
+                self.obstacle1.sprite_y = obstacle_start_x
+            else:
+                self.obstacle1.sprite_y += 1
+
+
+            if self.obstacle2.sprite_y == screen_height:
+                self.obstacle2.sprite_y = obstacle_start_x
+            else:
+                self.obstacle2.sprite_y += 1
 
             for a_life in lives:
 
