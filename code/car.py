@@ -1,4 +1,5 @@
 from sprite import *
+from game import *
 
 # Car sprite
 class Car(Sprite):
@@ -7,6 +8,7 @@ class Car(Sprite):
         sprite_position = 2
         type = 'car'
         self.distance_travelled = 0
+        self.lives = 3
         Sprite.__init__(self, game, x, y, width, sprite_position, name, type, 0)
         
 
@@ -19,3 +21,6 @@ class Car(Sprite):
         
         if type == "collision":
             self.game.play_sound("explosion")
+
+    def lose_life(self):
+        self.lives -= 1
