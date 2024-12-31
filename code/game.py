@@ -5,8 +5,7 @@ from divider import *
 import random
 import time
 from obstacle import *
-import secrets
-
+from life import *
 
 screen_width = 800
 screen_height = 600
@@ -21,6 +20,7 @@ tanks = []
 rockets = []
 dividers = []
 cars = []
+lives = []
 
 
 class Game:
@@ -48,10 +48,18 @@ class Game:
             divider1 = Divider(self, 400, 20, 64, i)
             divider2 = Divider(self, 400, 20, 64, i)
             divider3 = Divider(self, 400, 20, 64, i)
+            life1 = Life(self, 112, 24, 64, i)
+            life2 = Life(self, 112 - 44, 24, 64, i)
+            life3 = Life(self, 112 - 44 * 2, 24, 64, i)
+
             if i == 0:
                 divider1.draw_divider(1 * 248, 20)
                 divider2.draw_divider(1 * 248, 300)
                 divider3.draw_divider(1 * 248, 600)
+                life1.draw_heart()
+                life2.draw_heart()
+                life3.draw_heart()
+
             else:
                 divider1.draw_divider(2 * 248, 20)
                 divider2.draw_divider(2 * 248, 300)
@@ -59,6 +67,11 @@ class Game:
             dividers.append(divider1)
             dividers.append(divider2)
             dividers.append(divider3)
+            lives.append(life1)
+            lives.append(life2)
+            lives.append(life3)
+
+
             
                 # if obstacle == 
                 # self.obstacle2.draw(spot, 300)   
@@ -121,6 +134,10 @@ class Game:
             for divider in dividers:
                 divider.draw_divider(divider.sprite_x, divider.sprite_y)
 
+            for a_life in lives:
+
+                a_life.draw_heart()
+
             # # Checks for collisions
             # all_sprites = tanks + rockets
             # for sprite in all_sprites:
@@ -146,7 +163,8 @@ class Game:
                     self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
                     self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
-            self.show_message(str(self.car.distance_travelled))
+            self.show_message(str(self.car.distance_travelled), (screen_width/2, 50))
+            self.show_message(str(self.car.lives), (screen_width - 100, 50))
 
             # Display everything
             pygame.display.update()
@@ -160,14 +178,14 @@ class Game:
         pygame.mixer.Sound('./assets/' + sound_name + '.wav').play()
 
     
-    def show_message(self, message):
+    def show_message(self, message, spot):
         # sets the font and color
         font = pygame.font.SysFont('timesnewroman',  60)
         green = 0, 0, 255
         text = font.render(message, True, green)
         textRect = text.get_rect()
         #puts the score at the center of the screen
-        textRect.center = (screen_width/2, 50)
+        textRect.center = (spot)
         window.blit(text, textRect)
         pygame.display.flip()
 
