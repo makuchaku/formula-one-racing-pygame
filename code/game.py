@@ -33,8 +33,8 @@ class Game:
         pygame.font.init()
         window = pygame.display.set_mode((screen_width, screen_height))
         window.fill('light blue')
-        self.obstacle1 = Obstacle(self, 0, obstacle_start_x, sprite_box, "Obstacle1") 
-        self.obstacle2 = Obstacle(self, 0, obstacle_start_x, sprite_box, "Obstacle2")
+        self.obstacle1 = Obstacle(self, 0, obstacle_start_x, obstacle_start_x, sprite_box, "Obstacle1") 
+        self.obstacle2 = Obstacle(self, 0, obstacle_start_x, obstacle_start_x, sprite_box, "Obstacle2")
         # Init sound
         pygame.mixer.init()
         self.car = None
