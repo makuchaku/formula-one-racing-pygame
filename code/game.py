@@ -32,8 +32,8 @@ class Game:
         pygame.font.init()
         window = pygame.display.set_mode((screen_width, screen_height))
         window.fill('light blue')
-        self.obstacle1 = Obstacle(self, 0, 300, sprite_box, "Obstacle1") 
-        self.obstacle2 = Obstacle(self, 0, 300, sprite_box, "Obstacle2")
+        self.obstacle1 = Obstacle(self, 0, 300, 300, sprite_box, "Obstacle1") 
+        self.obstacle2 = Obstacle(self, 0, 300, 300, sprite_box, "Obstacle2")
         # Init sound
         pygame.mixer.init()
         self.car = None
@@ -41,16 +41,16 @@ class Game:
  
     # Creates all sprites
     def create_sprites(self):
-        self.car = Car(self, (screen_width-sprite_box)/2, (screen_height-sprite_box), sprite_box, 1)
+        self.car = Car(self, (screen_width-sprite_box)/2, screen_height,sprite_box, sprite_box, 1)
     
         
         for i in range(3):
-            divider1 = Divider(self, 400, 20, 64, i)
-            divider2 = Divider(self, 400, 20, 64, i)
-            divider3 = Divider(self, 400, 20, 64, i)
-            life1 = Life(self, 112, 24, 64, i)
-            life2 = Life(self, 112 - 44, 24, 64, i)
-            life3 = Life(self, 112 - 44 * 2, 24, 64, i)
+            divider1 = Divider(self, 400, 20, 64,64, i)
+            divider2 = Divider(self, 400, 20, 64, 64, i)
+            divider3 = Divider(self, 400, 20, 64, 64, i)
+            life1 = Life(self, 112, 24, 64, 64, i)
+            life2 = Life(self, 112 - 44, 24, 64, 64, i)
+            life3 = Life(self, 112 - 44 * 2, 24, 64, 64, i)
 
             if i == 0:
                 divider1.draw_divider(1 * 248, 20)
@@ -78,12 +78,12 @@ class Game:
 
 
             car = Car(self, random.randint(10, screen_width),
-                      random.randint(10, screen_height), 64, i)
+                      random.randint(10, screen_height), 64,64, i)
             car.load()
             cars.append(car)
 
             car = Car(self, random.randint(10, screen_width),
-                      random.randint(10, screen_height), 64, i)
+                      random.randint(10, screen_height), 64, 64, i)
             car.load()
             cars.append(car)
 
