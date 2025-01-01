@@ -83,11 +83,11 @@ class Game:
             # Check for movement
             elif event.type == pygame.KEYDOWN:
                 if self.car.sprite_x == 616 and event.key == pygame.K_RIGHT:
-                    self.car.play_sound("move")
+                    # self.car.play_sound("move")
                     # Don't move, already at right boundary
                     pass
                 elif self.car.sprite_x == 120 and event.key == pygame.K_LEFT:
-                    self.car.play_sound("move")
+                    # self.car.play_sound("move")
                     # Don't move, already at left boundary
                     pass
                 elif event.key == pygame.K_RIGHT and self.car.sprite_x != 616:
