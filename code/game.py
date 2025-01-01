@@ -37,7 +37,7 @@ class Game:
         pygame.mixer.init()
         self.car = None
         # self.background_image = pygame.image.load('./assets/road.jpg')
-        self.background_image = pygame.transform.scale(pygame.image.load('./assets/road2.png'), (screen_width, screen_height))
+        self.background_image = pygame.transform.scale(pygame.image.load('./assets/road.jpg'), (screen_width, screen_height))
 
 
  
@@ -102,7 +102,7 @@ class Game:
             # Cleans the screen
             ## ONLY DO THIS BEFORE RENDERING ALL SPRITES
             window.fill('black')
-            # self.render_background()
+            self.render_background()
 
             # Set up all positions
             self.car.draw()
