@@ -97,7 +97,7 @@ class Sprite(pygame.sprite.Sprite):
             self.sprite_x + self.width > other_sprite.sprite_x and
             self.sprite_y < other_sprite.sprite_y + other_sprite.width and
             self.sprite_y + self.width > other_sprite.sprite_y):
-            print('COLLISION DETECTED BETWEEN', self.name, other_sprite.name)
+            # print('COLLISION DETECTED BETWEEN', self.name, other_sprite.name)
             return True
         return False
     
