@@ -143,14 +143,14 @@ class Game:
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
                         self.car.lives = 2
-                        self.obstacle1.sprite_y = obstacle_start_x
+                        self.obstacle1.sprite_y += obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle1.collided == True
 
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
                         self.car.lives = 1
-                        self.obstacle1.sprite_y = obstacle_start_x
+                        self.obstacle1.sprite_y += obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle1.collided == True
                         print(self.car.lives)
@@ -158,7 +158,7 @@ class Game:
                     elif self.car.lives == 1:
                         self.life3.kill_sprite()
                         self.car.lives  = 0
-                        self.obstacle1.sprite_y = obstacle_start_x
+                        self.obstacle1.sprite_y += obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle1.collided == True
                         print(self.car.lives)
@@ -173,14 +173,14 @@ class Game:
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
                         self.car.lives = 2
-                        self.obstacle2.sprite_y = obstacle_start_x
+                        self.obstacle2.sprite_y += obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle2.collided == True
 
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
                         self.car.lives = 1
-                        self.obstacle2.sprite_y = obstacle_start_x
+                        self.obstacle2.sprite_y += obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle2.collided == True
                         print(self.car.lives)
@@ -188,7 +188,7 @@ class Game:
                     elif self.car.lives == 1:
                         self.life3.kill_sprite()
                         self.car.lives  = 0
-                        self.obstacle2.sprite_y = obstacle_start_x
+                        self.obstacle2.sprite_y += obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle2.collided == True
                         print(self.car.lives)
@@ -213,8 +213,8 @@ class Game:
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
             # Draw text
-            self.show_message(str(self.car.distance_travelled), (screen_width/2, 50))
-            self.show_message(str(self.car.lives), (screen_width - 100, 50))
+            self.show_message(str(round(self.car.distance_travelled)), (screen_width/2, 50))
+            # self.show_message(str(self.car.lives), (screen_width - 100, 50))
 
 
             # Display everything
