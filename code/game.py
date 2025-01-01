@@ -112,7 +112,8 @@ class Game:
             # Render dividers
             for divider in dividers:
                 divider.move_y(1)
-                self.car.distance_travelled = round(self.car.distance_travelled + 1/100, 2)
+                if not self.car.lives == 0:
+                    self.car.distance_travelled = round(self.car.distance_travelled + 1/100, 2)
 
             for divider in dividers:
                 divider.draw_divider(divider.sprite_x, divider.sprite_y)
@@ -142,20 +143,20 @@ class Game:
                     # print('car collided with obstacle1')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
-                        # self.obstacle1.sprite_y = obstacle_start_x
+                        self.obstacle1.sprite_y += speed
 
                     if self.car.lives == 2:
                         self.life2.kill_sprite()
-                        # self.obstacle1.sprite_y = obstacle_start_x
+                        self.obstacle1.sprite_y += speed
 
 
                     if self.car.lives == 1:
-                        self.life3.kill_sprite
+                        self.life3.kill_sprite()
                         print('you lose. Reyansh wins')
-                        # self.obstacle1.sprite_y = obstacle_start_x
+                        self.obstacle1.sprite_y += speed
 
 
-                    if self.car.lives == 3 or self.car.lives == 2:
+                    if self.car.lives == 3 or self.car.lives == 2 or self.car.lives == 2:
                         self.car.lives -=1
                         self.play_sound('crash')
                         self.obstacle1.collided == True
@@ -166,21 +167,31 @@ class Game:
                     # print('car collided with obstacle2')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
+                        self.car.lives = 2
                         self.obstacle2.sprite_y = obstacle_start_x
+                        self.play_sound('crash')
+                        self.obstacle2.collided == True
 
 
-                    if self.car.lives == 2:
+                    elif self.car.lives == 2:
                         self.life2.kill_sprite()
+                        self.car.lives = 1
                         self.obstacle2.sprite_y = obstacle_start_x
+                        self.play_sound('crash')
+                        self.obstacle2.collided == True
+                        print(self.car.lives)
 
-
-                    if self.car.lives == 1:
+                    elif self.car.lives == 1:
                         self.life3.kill_sprite()
+                        self.car.lives  = 0
                         self.obstacle2.sprite_y = obstacle_start_x
+                        self.play_sound('crash')
+                        self.obstacle2.collided == True
+                        print(self.car.lives)
 
 
-                    if self.car.lives == 3 or self.car.lives == 2:
-                        self.car.lives -=1
+
+                    elif self.car.lives == 3 or self.car.lives == 2 or self.car.lives == 1:
                         self.play_sound('crash')
                         self.obstacle2.collided == True
 
@@ -193,15 +204,18 @@ class Game:
 
             if self.obstacle1.sprite_y == screen_height:
                 self.obstacle1.collided = False
+                self.obstacle1.sprite_y = obstacle_start_x
                 self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
 
             if self.obstacle2.sprite_y == screen_height:
                 self.obstacle2.collided = False
+                self.obstacle1.sprite_y = obstacle_start_x
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
             # Draw text
             self.show_message(str(self.car.distance_travelled), (screen_width/2, 50))
             self.show_message(str(self.car.lives), (screen_width - 100, 50))
+
 
             # Display everything
             pygame.display.update()
