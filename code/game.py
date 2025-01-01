@@ -163,6 +163,7 @@ class Game:
                         self.play_sound('crash')
                         self.obstacle1.collided == True
                         print(self.car.lives)
+                        self.game_over()
 
 
 
@@ -193,6 +194,7 @@ class Game:
                         self.play_sound('crash')
                         self.obstacle2.collided == True
                         print(self.car.lives)
+                        self.game_over()
 
 
 
@@ -245,3 +247,7 @@ class Game:
 
     def render_background(self):
         window.blit(self.background_image, (0, 0))
+
+
+    def game_over(self):
+        print("GAME OVER")
