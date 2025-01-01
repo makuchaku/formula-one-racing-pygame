@@ -24,23 +24,24 @@ lives = []
 obstacle_start_x = 300
 
 
-class Game:
-
+class Game:      
+        
     def __init__(self):
         self.energy_released = 0
 
-        # Init pygame
+    # Init pygame
         pygame.font.init()
-        window = pygame.display.set_mode((screen_width, screen_height))
-        window.fill('light blue')
         self.obstacle1 = Obstacle(self, 0, obstacle_start_x, obstacle_start_x, sprite_box, "Obstacle1") 
         self.obstacle2 = Obstacle(self, 0, obstacle_start_x, obstacle_start_x, sprite_box, "Obstacle2")
-        # Init sound
+    # Init sound
         pygame.mixer.init()
         self.car = None
 
- 
-    # Creates all sprites
+    def render_background(self):
+        background_image = pygame.image.load('./assets/road.jpg')
+        window.blit(background_image, (0, 0))
+
+    # Creates all sprites   
     def create_sprites(self):
         self.car = Car(self, (screen_width-sprite_box)/2, screen_height, 1)
     
@@ -103,10 +104,8 @@ class Game:
 
             # Cleans the screen
             ## ONLY DO THIS BEFORE RENDERING ALL SPRITES
-            window.fill('light blue')
-
+            self.render_background()
             # Set up all positions
-            # self.car.move_y(-1)
             # time.sleep(1/speed)
             self.car.draw()
 
