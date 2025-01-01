@@ -3,12 +3,12 @@ from sprite import *
 # This class creates obstacles
 class Obstacle(Sprite):
 
-    def __init__(self, game, x, y, width, height, name):
+    def __init__(self, game, x, y, width, name):
         sprite_position = 0
         type = 'obstacle'
         self.collided = False
         self.x_positions = [120, 368, 616]
-        Sprite.__init__(self, game, x, y, width, height, sprite_position, name, type, 0)
+        Sprite.__init__(self, game, x, y, width, sprite_position, name, type, 0)
 
 
     def choose_random_x(self):
