@@ -120,6 +120,7 @@ class Game:
             # If obstacle hits the bottom of screen, start it from the top again
             if self.obstacle1.sprite_y == screen_height:
                 self.obstacle1.sprite_y = obstacle_start_x
+
             else:
                 self.obstacle1.sprite_y += 1
 
@@ -135,32 +136,29 @@ class Game:
                     a_life.draw_heart()
 
 
-            # Checks for collisions
+            # Checks for obsctacle and car collisions
             if self.obstacle1.collided == False:
                 if self.car.check_and_change_direction(self.obstacle1) == True:
                     # print('car collided with obstacle1')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
+                        # self.obstacle1.sprite_y = obstacle_start_x
 
                     if self.car.lives == 2:
                         self.life2.kill_sprite()
+                        # self.obstacle1.sprite_y = obstacle_start_x
+
 
                     if self.car.lives == 1:
-                        self.life2.kill_sprite
+                        self.life3.kill_sprite
                         print('you lose. Reyansh wins')
+                        # self.obstacle1.sprite_y = obstacle_start_x
+
 
                     if self.car.lives == 3 or self.car.lives == 2:
                         self.car.lives -=1
                         self.play_sound('crash')
-                        self.obstacle2.collided == True
-
-                    self.car.lives -=1
-                    self.play_sound('crash')
-                    self.obstacle1.collided == True
-
-
-            elif self.obstacle1.collided == True:
-                pass
+                        self.obstacle1.collided == True
 
             
             elif self.obstacle2.collided == False:
@@ -168,22 +166,24 @@ class Game:
                     # print('car collided with obstacle2')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
+                        self.obstacle2.sprite_y = obstacle_start_x
+
 
                     if self.car.lives == 2:
                         self.life2.kill_sprite()
+                        self.obstacle2.sprite_y = obstacle_start_x
+
 
                     if self.car.lives == 1:
-                        self.life2.kill_sprite
-                        print('you lose. Reyansh wins')
+                        self.life3.kill_sprite()
+                        self.obstacle2.sprite_y = obstacle_start_x
+
 
                     if self.car.lives == 3 or self.car.lives == 2:
                         self.car.lives -=1
                         self.play_sound('crash')
                         self.obstacle2.collided == True
 
-
-            elif self.obstacle2.collided == True:
-                pass
 
 
             # Draw obstacles randomly across dividers in X axis                        
