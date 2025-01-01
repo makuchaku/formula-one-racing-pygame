@@ -19,7 +19,6 @@ car_move_sprite = 248
 tanks = []
 rockets = []
 dividers = []
-cars = []
 lives = []
 obstacle_start_x = 300
 
@@ -43,20 +42,23 @@ class Game:
     # Creates all sprites
     def create_sprites(self):
         self.car = Car(self, (screen_width-sprite_box)/2, (screen_height-sprite_box), sprite_box, 1)
-    
+
+        self.life1 = Life(self, 112, 24, 64, 1)
+        self.life2 = Life(self, 112 - 44 * 1, 24, 64, 2)
+        self.life3 = Life(self, 112 - 44 * 2, 24, 64, 3)
+        lives.append(self.life1)
+        lives.append(self.life2)
+        lives.append(self.life3)
+
         
         for i in range(3):
             divider1 = Divider(self, 400, 20, 64, i)
             divider2 = Divider(self, 400, 20, 64, i)
             divider3 = Divider(self, 400, 20, 64, i)
-            life = Life(self, 112 - 44 * i, 24, 64, i)
-
             if i == 0:
                 divider1.draw_divider(1 * 248, 20)
                 divider2.draw_divider(1 * 248, 300)
                 divider3.draw_divider(1 * 248, 600)
-                life.draw_heart()
-
             else:
                 divider1.draw_divider(2 * 248, 20)
                 divider2.draw_divider(2 * 248, 300)
@@ -65,44 +67,31 @@ class Game:
             dividers.append(divider2)
             dividers.append(divider3)
 
-
-
-            
-    
-
-
-            car = Car(self, random.randint(10, screen_width),
-                      random.randint(10, screen_height), 64, i)
-            car.load()
-            cars.append(car)
-
-            car = Car(self, random.randint(10, screen_width),
-                      random.randint(10, screen_height), 64, i)
-            car.load()
-            cars.append(car)
-        for i in range(self.car.lives):
-            life.draw_heart()
+ 
 
     # Each iteration is a frame
     def render_frames(self):
         while True:
             event = pygame.event.poll()
+            # Check if we need to quit
             if event.type == pygame.QUIT:
                 break
+
+            # Check for movement
             elif event.type == pygame.KEYDOWN:
                 if self.car.sprite_x == 616 and event.key == pygame.K_RIGHT:
-                    self.car.play_sound("no_move")
+                    self.car.play_sound("move")
                     # Don't move, already at right boundary
                     pass
                 elif self.car.sprite_x == 120 and event.key == pygame.K_LEFT:
-                    self.car.play_sound("no_move")
+                    self.car.play_sound("move")
                     # Don't move, already at left boundary
                     pass
                 elif event.key == pygame.K_RIGHT and self.car.sprite_x != 616:
-                    self.car.play_sound("move")
+                    self.car.play_sound("no_move")
                     self.car.move_x(car_move_sprite)
                 elif event.key == pygame.K_LEFT and self.car.sprite_x != 120:
-                    self.car.play_sound("move")
+                    self.car.play_sound("no_move")
                     self.car.move_x(-car_move_sprite)
 
 
@@ -112,8 +101,6 @@ class Game:
             window.fill('light blue')
 
             # Set up all positions
-            # self.car.move_y(-1)
-            # time.sleep(1/speed)
             self.car.draw()
 
             # Draw obstacles
@@ -121,55 +108,91 @@ class Game:
             self.obstacle2.draw()
 
 
+            # Render dividers
             for divider in dividers:
                 divider.move_y(1)
                 self.car.distance_travelled = round(self.car.distance_travelled + 1/100, 2)
 
-            # Render dividers
             for divider in dividers:
                 divider.draw_divider(divider.sprite_x, divider.sprite_y)
 
+            # If obstacle hits the bottom of screen, start it from the top again
             if self.obstacle1.sprite_y == screen_height:
                 self.obstacle1.sprite_y = obstacle_start_x
             else:
                 self.obstacle1.sprite_y += 1
-
 
             if self.obstacle2.sprite_y == screen_height:
                 self.obstacle2.sprite_y = obstacle_start_x
             else:
                 self.obstacle2.sprite_y += 1
 
-            for a_life in lives:
 
+            # Draw lives
+            for a_life in lives:
                 a_life.draw_heart()
 
+
             # Checks for collisions
-            all_sprites = cars + [self.obstacle1, self.obstacle2]
-            for sprite in all_sprites:
-                for other_sprite in all_sprites:
-                    if sprite.name != other_sprite.name:
-                        if sprite.check_and_change_direction(other_sprite) == True:
-                            # if sprite.type == other_sprite.type:
-                            #     if sprite.killed == False and other_sprite.killed == False:
-                            #         sprite.energy += 1
-                            #         other_sprite.energy += 1
-                            #         self.play_sound('punch')
-                            #         print('Sprite Energy', sprite.energy, 'Other Sprite Energy', other_sprite.energy)
-                            if sprite.type != other_sprite.type:
-                                if sprite.killed == False and other_sprite.killed == False:
-                                    self.car.lives -= 1
-                                    # self.energy_released += (sprite.energy + other_sprite.energy)
-                                    # sprite.kill_sprite()
-                                    # other_sprite.kill_sprite()
-                                    # self.play_sound("explosion")
-                        
+            if self.obstacle1.collided == False:
+                if self.car.check_and_change_direction(self.obstacle1) == True:
+                    print('car collided with obstacle1')
+                    if self.car.lives == 3:
+                        self.life1.kill_sprite()
+
+                    if self.car.lives == 2:
+                        self.life2.kill_sprite()
+
+                    if self.car.lives == 1:
+                        self.life2.kill_sprite
+                        print('you lose. Reyansh wins')
+
+                    if self.car.lives == 3 or self.car.lives == 2:
+                        self.car.lives -=1
+                        self.play_sound('explosion')
+                        self.obstacle2.collided == True
+
+                    self.car.lives -=1
+                    self.play_sound('explosion')
+                    self.obstacle1.collided == True
+
+
+            elif self.obstacle1.collided == True:
+                pass
+
+            
+            elif self.obstacle2.collided == False:
+                if self.car.check_and_change_direction(self.obstacle2) == True:
+                    print('car collided with obstacle2')
+                    if self.car.lives == 3:
+                        self.life1.kill_sprite()
+
+                    if self.car.lives == 2:
+                        self.life2.kill_sprite()
+
+                    if self.car.lives == 1:
+                        self.life2.kill_sprite
+                        print('you lose. Reyansh wins')
+
+                    if self.car.lives == 3 or self.car.lives == 2:
+                        self.car.lives -=1
+                        self.play_sound('explosion')
+                        self.obstacle2.collided == True
+
+
+            elif self.obstacle2.collided == True:
+                pass
+
+
+            # Draw obstacles randomly across dividers in X axis                        
             for divider in dividers:
                 if divider.sprite_y == screen_height:
                     divider.sprite_y = 0
                     self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
                     self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
+
+            # Draw text
             self.show_message(str(self.car.distance_travelled), (screen_width/2, 50))
             self.show_message(str(self.car.lives), (screen_width - 100, 50))
 
