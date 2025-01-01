@@ -235,8 +235,8 @@ class Game:
     
     def show_message(self, message, spot):
         # sets the font and color
-        font = pygame.font.SysFont('timesnewroman',  60)
-        green = 255, 255, 255
+        font = pygame.font.SysFont('timesnewroman',  80)
+        green = 0, 0, 0
         text = font.render(message, True, green)
         textRect = text.get_rect()
         # puts the score at the center of the screen
