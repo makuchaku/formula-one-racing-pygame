@@ -121,7 +121,6 @@ class Game:
             # If obstacle hits the bottom of screen, start it from the top again
             if self.obstacle1.sprite_y == screen_height:
                 self.obstacle1.sprite_y = obstacle_start_x
-
             else:
                 self.obstacle1.sprite_y += 1
 
@@ -143,23 +142,29 @@ class Game:
                     # print('car collided with obstacle1')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
-                        self.obstacle1.sprite_y += speed
-
-                    if self.car.lives == 2:
-                        self.life2.kill_sprite()
-                        self.obstacle1.sprite_y += speed
-
-
-                    if self.car.lives == 1:
-                        self.life3.kill_sprite()
-                        print('you lose. Reyansh wins')
-                        self.obstacle1.sprite_y += speed
-
-
-                    if self.car.lives == 3 or self.car.lives == 2 or self.car.lives == 2:
-                        self.car.lives -=1
+                        self.car.lives = 2
+                        self.obstacle1.sprite_y = obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle1.collided == True
+
+                    elif self.car.lives == 2:
+                        self.life2.kill_sprite()
+                        self.car.lives = 1
+                        self.obstacle1.sprite_y = obstacle_start_x
+                        self.play_sound('crash')
+                        self.obstacle1.collided == True
+                        print(self.car.lives)
+
+                    elif self.car.lives == 1:
+                        self.life3.kill_sprite()
+                        self.car.lives  = 0
+                        self.obstacle1.sprite_y = obstacle_start_x
+                        self.play_sound('crash')
+                        self.obstacle1.collided == True
+                        print(self.car.lives)
+
+
+
 
             
             elif self.obstacle2.collided == False:
@@ -171,7 +176,6 @@ class Game:
                         self.obstacle2.sprite_y = obstacle_start_x
                         self.play_sound('crash')
                         self.obstacle2.collided == True
-
 
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
@@ -190,10 +194,6 @@ class Game:
                         print(self.car.lives)
 
 
-
-                    elif self.car.lives == 3 or self.car.lives == 2 or self.car.lives == 1:
-                        self.play_sound('crash')
-                        self.obstacle2.collided == True
 
 
 
