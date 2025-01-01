@@ -20,7 +20,7 @@ tanks = []
 rockets = []
 dividers = []
 lives = []
-obstacle_start_x = 300
+obstacle_start_y = 10
 
 
 class Game:
@@ -32,11 +32,13 @@ class Game:
         pygame.font.init()
         window = pygame.display.set_mode((screen_width, screen_height))
         window.fill('black')
-        self.obstacle1 = Obstacle(self, 0, obstacle_start_x, sprite_box, "Obstacle1") 
-        self.obstacle2 = Obstacle(self, 0, obstacle_start_x, sprite_box, "Obstacle2")
+        self.obstacle1 = Obstacle(self, 0, obstacle_start_y, sprite_box, "Obstacle1") 
+        self.obstacle2 = Obstacle(self, 0, obstacle_start_y, sprite_box, "Obstacle2")
         # Init sound
         pygame.mixer.init()
         self.car = None
+        self.background_image = pygame.image.load('./assets/road.jpg')
+
 
  
     # Creates all sprites
@@ -100,6 +102,7 @@ class Game:
             # Cleans the screen
             ## ONLY DO THIS BEFORE RENDERING ALL SPRITES
             window.fill('black')
+            self.render_background()
 
             # Set up all positions
             self.car.draw()
@@ -120,12 +123,12 @@ class Game:
 
             # If obstacle hits the bottom of screen, start it from the top again
             if self.obstacle1.sprite_y == screen_height:
-                self.obstacle1.sprite_y = obstacle_start_x
+                self.obstacle1.sprite_y = obstacle_start_y
             else:
                 self.obstacle1.sprite_y += 1
 
             if self.obstacle2.sprite_y == screen_height:
-                self.obstacle2.sprite_y = obstacle_start_x
+                self.obstacle2.sprite_y = obstacle_start_y
             else:
                 self.obstacle2.sprite_y += 1
 
@@ -143,14 +146,14 @@ class Game:
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
                         self.car.lives = 2
-                        self.obstacle1.sprite_y += obstacle_start_x
+                        self.obstacle1.sprite_y += screen_height
                         self.play_sound('crash')
                         self.obstacle1.collided == True
 
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
                         self.car.lives = 1
-                        self.obstacle1.sprite_y += obstacle_start_x
+                        self.obstacle1.sprite_y += screen_height
                         self.play_sound('crash')
                         self.obstacle1.collided == True
                         print(self.car.lives)
@@ -158,7 +161,7 @@ class Game:
                     elif self.car.lives == 1:
                         self.life3.kill_sprite()
                         self.car.lives  = 0
-                        self.obstacle1.sprite_y += obstacle_start_x
+                        self.obstacle1.sprite_y += screen_height
                         self.play_sound('crash')
                         self.obstacle1.collided == True
                         print(self.car.lives)
@@ -173,14 +176,14 @@ class Game:
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
                         self.car.lives = 2
-                        self.obstacle2.sprite_y += obstacle_start_x
+                        self.obstacle2.sprite_y += screen_height
                         self.play_sound('crash')
                         self.obstacle2.collided == True
 
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
                         self.car.lives = 1
-                        self.obstacle2.sprite_y += obstacle_start_x
+                        self.obstacle2.sprite_y += screen_height
                         self.play_sound('crash')
                         self.obstacle2.collided == True
                         print(self.car.lives)
@@ -188,7 +191,7 @@ class Game:
                     elif self.car.lives == 1:
                         self.life3.kill_sprite()
                         self.car.lives  = 0
-                        self.obstacle2.sprite_y += obstacle_start_x
+                        self.obstacle2.sprite_y += screen_height
                         self.play_sound('crash')
                         self.obstacle2.collided == True
                         print(self.car.lives)
@@ -204,12 +207,12 @@ class Game:
 
             if self.obstacle1.sprite_y == screen_height:
                 self.obstacle1.collided = False
-                self.obstacle1.sprite_y = obstacle_start_x
+                self.obstacle1.sprite_y = obstacle_start_y
                 self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
 
             if self.obstacle2.sprite_y == screen_height:
                 self.obstacle2.collided = False
-                self.obstacle1.sprite_y = obstacle_start_x
+                self.obstacle1.sprite_y = obstacle_start_y
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
             # Draw text
@@ -240,3 +243,6 @@ class Game:
         window.blit(text, textRect)
         pygame.display.flip()
 
+
+    def render_background(self):
+        window.blit(self.background_image, (0, 0))
