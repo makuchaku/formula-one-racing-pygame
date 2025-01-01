@@ -25,6 +25,8 @@ class Game:
     def __init__(self):
         self.energy_released = 0
 
+        self.name = "Maku"
+
         # Init pygame
         pygame.font.init()
         window = pygame.display.set_mode((screen_width, screen_height))
@@ -216,7 +218,8 @@ class Game:
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
             # Draw text
-            self.show_message(str(round(self.car.distance_travelled)), (screen_width/2, 50))
+            self.show_message(self.name.capitalize() + "\'s Score", (screen_width/2, 40), 30)
+            self.show_message(str(round(self.car.distance_travelled)), (screen_width/2, 100), 80)
 
 
             # Display everything
@@ -233,9 +236,9 @@ class Game:
         pygame.mixer.Sound('./assets/' + sound_name + '.wav').play()
 
     
-    def show_message(self, message, spot):
+    def show_message(self, message, spot, size):
         # sets the font and color
-        font = pygame.font.SysFont('timesnewroman',  80)
+        font = pygame.font.SysFont('timesnewroman',  size)
         green = 0, 0, 0
         text = font.render(message, True, green)
         textRect = text.get_rect()
