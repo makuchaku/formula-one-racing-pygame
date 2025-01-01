@@ -2,8 +2,6 @@ import pygame
 from car import *
 from rocket import *
 from divider import *
-import random
-import time
 from obstacle import *
 from life import *
 
