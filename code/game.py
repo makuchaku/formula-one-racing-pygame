@@ -11,8 +11,7 @@ screen_width = 800
 screen_height = 600
 
 sprite_box = 64
-speed = 1000
-num_sprites = 5
+speed = 100000
 car_move_sprite = 248
 
 
@@ -37,7 +36,8 @@ class Game:
         # Init sound
         pygame.mixer.init()
         self.car = None
-        self.background_image = pygame.image.load('./assets/road.jpg')
+        # self.background_image = pygame.image.load('./assets/road.jpg')
+        self.background_image = pygame.transform.scale(pygame.image.load('./assets/road2.png'), (screen_width, screen_height))
 
 
  
@@ -102,7 +102,7 @@ class Game:
             # Cleans the screen
             ## ONLY DO THIS BEFORE RENDERING ALL SPRITES
             window.fill('black')
-            self.render_background()
+            # self.render_background()
 
             # Set up all positions
             self.car.draw()
@@ -217,11 +217,12 @@ class Game:
 
             # Draw text
             self.show_message(str(round(self.car.distance_travelled)), (screen_width/2, 50))
-            # self.show_message(str(self.car.lives), (screen_width - 100, 50))
 
 
             # Display everything
             pygame.display.update()
+
+
 
 
     def stop(self):
@@ -235,10 +236,10 @@ class Game:
     def show_message(self, message, spot):
         # sets the font and color
         font = pygame.font.SysFont('timesnewroman',  60)
-        green = 0, 0, 255
+        green = 255, 255, 255
         text = font.render(message, True, green)
         textRect = text.get_rect()
-        #puts the score at the center of the screen
+        # puts the score at the center of the screen
         textRect.center = (spot)
         window.blit(text, textRect)
         pygame.display.flip()
