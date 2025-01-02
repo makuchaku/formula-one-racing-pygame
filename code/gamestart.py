@@ -8,15 +8,17 @@ class GameStart:
         pygame.display.set_caption("Your game starts here...")
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.screen = pygame.display.set_mode((self.screen_width, screen_height))
         self.background_image = pygame.transform.scale(pygame.image.load('./assets/road.jpg'), (screen_width, screen_height))
         self.clock = pygame.time.Clock()
         self.ui_manager = pygame_gui.UIManager((screen_width, screen_height))
+        self.create_text_input()
 
+    def create_text_input(self):   
         text_input_width = 500
         text_input_height = 50
-        text_input_x = int((screen_width - text_input_width)/2)
-        text_input_y = (screen_height/2) - text_input_height
+        text_input_x = int((self.screen_width - text_input_width)/2)
+        text_input_y = (self.screen_height/2) - text_input_height
         self.text_input = pygame_gui.elements.UITextEntryLine(
             relative_rect = pygame.Rect((text_input_x, text_input_y), (text_input_width, text_input_height)),
             manager = self.ui_manager,

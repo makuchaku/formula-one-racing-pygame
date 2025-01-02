@@ -3,16 +3,14 @@ import random
 from game import *
 
 width_or_height = 500
-screen_width = 800
-screen_height = 600
-
-window = pygame.display.set_mode((screen_width, screen_height))
-
 
 class Sprite(pygame.sprite.Sprite):
 
-    def __init__(self, game, sprite_x, sprite_y, width, sprite_position, name, type, energy):
+    def __init__(self, game, sprite_x, sprite_y, width, sprite_position, name, type, screen_width, screen_height):
         pygame.sprite.Sprite.__init__(self)
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        self.window = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.game = game
         self.sprite_x = sprite_x
         self.sprite_y = sprite_y
@@ -41,7 +39,7 @@ class Sprite(pygame.sprite.Sprite):
         location = pygame.math.Vector2(self.sprite_x, self.sprite_y)
         if self.killed == False:
             # pygame.draw.rect(window, (255,0,0), [0, 0, self.width, self.width], 1)
-            window.blit(self.texture, location, self.rect)
+            self.window.blit(self.texture, location, self.rect)
 
     # Move on x axis primitive
     def move_x(self, move_x):
@@ -66,7 +64,7 @@ class Sprite(pygame.sprite.Sprite):
         # X
         if self.sprite_x == 0:
             self.direction_x = 1
-        if self.sprite_x == screen_width - self.width:
+        if self.sprite_x == self.screen_width - self.width:
             self.game.play_sound('punch')
             self.direction_x = -1
             # Sometimes, change the y direction
