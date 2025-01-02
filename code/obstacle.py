@@ -1,3 +1,5 @@
+import pygame
+import random
 from sprite import *
 
 # This class creates obstacles
@@ -8,6 +10,7 @@ class Obstacle(Sprite):
         type = 'obstacle'
         self.collided = False
         self.x_positions = [120, 368, 616]
+        self.texture = pygame.image.load('./assets/obstacle.png') 
         Sprite.__init__(self, game, x, y, width, sprite_position, name, type, screen_width, screen_height)
 
 

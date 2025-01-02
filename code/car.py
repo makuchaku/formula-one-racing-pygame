@@ -1,3 +1,4 @@
+import pygame
 from sprite import *
 from game import *
 
@@ -9,6 +10,7 @@ class Car(Sprite):
         type = 'car'
         self.distance_travelled = 0
         self.lives = 3
+        self.texture =  pygame.transform.scale(pygame.image.load('./assets/car1.png'), (64, 64))
         Sprite.__init__(self, game, x, y, width, sprite_position, name, type, screen_width, screen_height)
         
 

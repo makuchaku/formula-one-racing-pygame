@@ -2,8 +2,6 @@ import pygame
 import random
 from game import *
 
-width_or_height = 500
-
 class Sprite(pygame.sprite.Sprite):
 
     def __init__(self, game, sprite_x, sprite_y, width, sprite_position, name, type, screen_width, screen_height):
@@ -14,12 +12,6 @@ class Sprite(pygame.sprite.Sprite):
         self.game = game
         self.sprite_x = sprite_x
         self.sprite_y = sprite_y
-        if type == 'car':
-           self.texture =  pygame.transform.scale(pygame.image.load('./assets/car1.png'), (64, 64))
-        elif type == 'obstacle':
-            self.texture = pygame.image.load('./assets/obstacle.png') 
-        else:
-            self.texture = pygame.image.load('./assets/sprites.png')
 
         self.rect = pygame.Rect(0, sprite_position * width, width, width)
         # self.rect = pygame.Rect(0, sprite_position * width, width, width)
