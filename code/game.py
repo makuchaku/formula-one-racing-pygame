@@ -22,10 +22,10 @@ obstacle_start_y = 10
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, player_name):
         self.energy_released = 0
 
-        self.name = "Maku"
+        self.name = player_name
 
         # Init pygame
         pygame.font.init()
@@ -38,7 +38,6 @@ class Game:
         self.car = None
         # self.background_image = pygame.image.load('./assets/road.jpg')
         self.background_image = pygame.transform.scale(pygame.image.load('./assets/road.jpg'), (screen_width, screen_height))
-
 
  
     # Creates all sprites
