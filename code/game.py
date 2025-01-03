@@ -140,6 +140,7 @@ class Game:
                         self.life3.kill_sprite()
                         print(self.car.lives)
                         self.game_over()
+                        return
 
                     self.obstacle1.collided = True
                     if self.obstacle1.sprite_x == self.obstacle2.sprite_x and self.obstacle1.sprite_y == self.obstacle2.sprite_y:
@@ -159,6 +160,7 @@ class Game:
                         self.life3.kill_sprite()
                         print(self.car.lives)
                         self.game_over()
+                        return
 
                     self.obstacle2.collided = True
                     self.obstacle2.sprite_y = self.screen_height
@@ -218,7 +220,5 @@ class Game:
 
     def game_over(self):
         print("GAME OVER")
-
-        # stage = Stage()
-        # stage.game_over(self.window)
-        # continue
+        stage = Stage()
+        stage.game_over(self.window)
