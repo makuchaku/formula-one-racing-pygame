@@ -4,7 +4,7 @@ from game import *
 
 class Sprite(pygame.sprite.Sprite):
 
-    def __init__(self, game, sprite_x, sprite_y, width, sprite_position, name, type, screen_width, screen_height):
+    def __init__(self, game, sprite_x, sprite_y, width, height, sprite_position, name, type, screen_width, screen_height):
         pygame.sprite.Sprite.__init__(self)
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -13,11 +13,12 @@ class Sprite(pygame.sprite.Sprite):
         self.sprite_x = sprite_x
         self.sprite_y = sprite_y
 
-        self.rect = pygame.Rect(0, sprite_position * width, width, width)
+        self.rect = pygame.Rect(0, sprite_position * height, width, height)
         # self.rect = pygame.Rect(0, sprite_position * width, width, width)
         self.direction_x = 1
         self.direction_y = 1
         self.width = width
+        self.height = height
         self.name = name
         self.type = type
         self.energy = 1
@@ -70,7 +71,7 @@ class Sprite(pygame.sprite.Sprite):
         # Y
         if self.sprite_y == 0:
             self.direction_y = 1
-        if self.sprite_y == screen_height - self.width:
+        if self.sprite_y == self.screen_height - self.height:
             self.game.play_sound('punch')
             self.direction_y = -1
             # Sometimes, change the x direction
@@ -81,13 +82,12 @@ class Sprite(pygame.sprite.Sprite):
         if (random.randint(0, 1000) % 3 == 0):
             self.move_y(1 * self.direction_y)
 
-
     def check_collision(self, other_sprite):
-        if (self.sprite_x < other_sprite.sprite_x + other_sprite.width and
-            self.sprite_x + self.width > other_sprite.sprite_x and
-            self.sprite_y < other_sprite.sprite_y + other_sprite.width and
-            self.sprite_y + self.width > other_sprite.sprite_y):
-            # print('COLLISION DETECTED BETWEEN', self.name, other_sprite.name)
+        if (self.sprite_x <= other_sprite.sprite_x + other_sprite.width and
+            self.sprite_x + self.width >= other_sprite.sprite_x and
+            self.sprite_y <= other_sprite.sprite_y + other_sprite.height and
+            self.sprite_y + self.height >= other_sprite.sprite_y):
+            # print('COLLISION DETECTED BETWEEN2', self.name, other_sprite.name)
             return True
         return False
     

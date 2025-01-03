@@ -31,8 +31,8 @@ class Game:
         pygame.font.init()
         self.window = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.window.fill('black')
-        self.obstacle1 = Obstacle(self, 0, obstacle_start_y, sprite_box, "Obstacle1", self.screen_width, self.screen_height) 
-        self.obstacle2 = Obstacle(self, 0, obstacle_start_y, sprite_box, "Obstacle2", self.screen_width, self.screen_height)
+        self.obstacle1 = Obstacle(self, 0, obstacle_start_y, sprite_box, sprite_box, "Obstacle1", self.screen_width, self.screen_height) 
+        self.obstacle2 = Obstacle(self, 0, obstacle_start_y, sprite_box, sprite_box, "Obstacle2", self.screen_width, self.screen_height)
         # Init sound
         pygame.mixer.init()
         self.car = None
@@ -42,20 +42,20 @@ class Game:
  
     # Creates all sprites
     def create_sprites(self):
-        self.car = Car(self, (self.screen_width-sprite_box)/2, (self.screen_height-sprite_box), sprite_box, 1, self.screen_width, self.screen_height)
+        self.car = Car(self, 368, (self.screen_height-sprite_box), 1, self.screen_width, self.screen_height)
 
-        self.life1 = Life(self, 112, 24, 64, 1, self.screen_width, self.screen_height)
-        self.life2 = Life(self, 112 - 44 * 1, 24, 64, 2, self.screen_width, self.screen_height)
-        self.life3 = Life(self, 112 - 44 * 2, 24, 64, 3, self.screen_width, self.screen_height)
+        self.life1 = Life(self, 112, 24, 64, 64, 1, self.screen_width, self.screen_height)
+        self.life2 = Life(self, 112 - 44 * 1, 24, 64, 64, 2, self.screen_width, self.screen_height)
+        self.life3 = Life(self, 112 - 44 * 2, 24, 64, 64, 3, self.screen_width, self.screen_height)
         lives.append(self.life1)
         lives.append(self.life2)
         lives.append(self.life3)
 
         
         for i in range(3):
-            divider1 = Divider(self, 400, 20, 64, i, self.screen_width, self.screen_height)
-            divider2 = Divider(self, 400, 20, 64, i, self.screen_width, self.screen_height)
-            divider3 = Divider(self, 400, 20, 64, i, self.screen_width, self.screen_height)
+            divider1 = Divider(self, 400, 20, 64, 64, i, self.screen_width, self.screen_height)
+            divider2 = Divider(self, 400, 20, 64, 64, i, self.screen_width, self.screen_height)
+            divider3 = Divider(self, 400, 20, 64, 64, i, self.screen_width, self.screen_height)
             if i == 0:
                 divider1.draw_divider(1 * 248, 20)
                 divider2.draw_divider(1 * 248, 300)
@@ -81,22 +81,12 @@ class Game:
 
             # Check for movement
             elif event.type == pygame.KEYDOWN:
-                if self.car.sprite_x == 616 and event.key == pygame.K_RIGHT:
-                    # self.car.play_sound("move")
-                    # Don't move, already at right boundary
-                    pass
-                elif self.car.sprite_x == 120 and event.key == pygame.K_LEFT:
-                    # self.car.play_sound("move")
-                    # Don't move, already at left boundary
-                    pass
-                elif event.key == pygame.K_RIGHT and self.car.sprite_x != 616:
+                if event.key == pygame.K_RIGHT and self.car.sprite_x + car_move_sprite < self.screen_width:
                     self.car.play_sound("no_move")
                     self.car.move_x(car_move_sprite)
-                elif event.key == pygame.K_LEFT and self.car.sprite_x != 120:
+                elif event.key == pygame.K_LEFT and self.car.sprite_x - car_move_sprite > 0:
                     self.car.play_sound("no_move")
                     self.car.move_x(-car_move_sprite)
-
-
 
             # Cleans the screen
             ## ONLY DO THIS BEFORE RENDERING ALL SPRITES
@@ -141,64 +131,39 @@ class Game:
             # Checks for obsctacle and car collisions
             if self.obstacle1.collided == False:
                 if self.car.check_and_change_direction(self.obstacle1) == True:
-                    # print('car collided with obstacle1')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
-                        self.car.crashed()
-                        self.obstacle1.sprite_y += self.screen_height
-                        self.play_sound('crash')
-                        self.obstacle1.collided == True
-
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
-                        self.car.crashed()
-                        self.obstacle1.sprite_y += self.screen_height
-                        self.play_sound('crash')
-                        self.obstacle1.collided == True
                         print(self.car.lives)
-
                     elif self.car.lives == 1:
                         self.life3.kill_sprite()
-                        self.car.crashed()
-                        self.obstacle1.sprite_y += self.screen_height
-                        self.play_sound('crash')
-                        self.obstacle1.collided == True
                         print(self.car.lives)
                         self.game_over()
 
+                    self.obstacle1.collided = True
+                    if self.obstacle1.sprite_x == self.obstacle2.sprite_x and self.obstacle1.sprite_y == self.obstacle2.sprite_y:
+                        self.obstacle2.sprite_y = self.screen_height
+                    self.obstacle1.sprite_y = self.screen_height
+                    self.car.crashed()
+                    self.play_sound('crash')
 
-
-
-            
-            elif self.obstacle2.collided == False:
+            if self.obstacle2.collided == False and self.obstacle1.collided == False:
                 if self.car.check_and_change_direction(self.obstacle2) == True:
-                    # print('car collided with obstacle2')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
-                        self.car.lives = 2
-                        self.obstacle2.sprite_y += self.screen_height
-                        self.play_sound('crash')
-                        self.obstacle2.collided == True
-
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
-                        self.car.lives = 1
-                        self.obstacle2.sprite_y += self.screen_height
-                        self.play_sound('crash')
-                        self.obstacle2.collided == True
                         print(self.car.lives)
-
                     elif self.car.lives == 1:
                         self.life3.kill_sprite()
-                        self.car.lives  = 0
-                        self.obstacle2.sprite_y += self.screen_height
-                        self.play_sound('crash')
-                        self.obstacle2.collided == True
                         print(self.car.lives)
                         self.game_over()
 
-
-
+                    self.obstacle2.collided = True
+                    self.obstacle2.sprite_y = self.screen_height
+                    self.car.crashed()
+                    self.play_sound('crash')
 
 
             # Draw obstacles randomly across dividers in X axis                        
@@ -213,7 +178,7 @@ class Game:
 
             if self.obstacle2.sprite_y == self.screen_height:
                 self.obstacle2.collided = False
-                self.obstacle1.sprite_y = obstacle_start_y
+                self.obstacle2.sprite_y = obstacle_start_y
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
             # Draw text

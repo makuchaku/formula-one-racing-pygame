@@ -5,16 +5,17 @@ from game import *
 # Car sprite
 class Car(Sprite):
 
-    def __init__(self, game, x, y, width, name, screen_width, screen_height):
+    def __init__(self, game, x, y, name, screen_width, screen_height):
         sprite_position = 0
         type = 'car'
         self.distance_travelled = 0
         self.lives = 3
-        width = 84
-        self.texture =  pygame.transform.scale(pygame.image.load('./assets/car1.png'), (84, 84))
+        self.width = 84
+        self.height = 84
+        self.texture =  pygame.transform.scale(pygame.image.load('./assets/car1.png'), (self.width, self.height))
         pygame.mixer.music.load('assets/car_racing_sound.mp3')
         pygame.mixer.music.play(-1, 0.0)
-        Sprite.__init__(self, game, x - 10, y - 20, width, sprite_position, name, type, screen_width, screen_height)
+        Sprite.__init__(self, game, x -10, y - 20, self.width, self.height, sprite_position, name, type, screen_width, screen_height)
         
 
     def play_sound(self, type):
