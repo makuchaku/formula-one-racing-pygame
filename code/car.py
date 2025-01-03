@@ -10,8 +10,11 @@ class Car(Sprite):
         type = 'car'
         self.distance_travelled = 0
         self.lives = 3
-        self.texture =  pygame.transform.scale(pygame.image.load('./assets/car1.png'), (64, 64))
-        Sprite.__init__(self, game, x, y, width, sprite_position, name, type, screen_width, screen_height)
+        width = 84
+        self.texture =  pygame.transform.scale(pygame.image.load('./assets/car1.png'), (84, 84))
+        pygame.mixer.music.load('assets/car_racing_sound.mp3')
+        pygame.mixer.music.play(-1, 0.0)
+        Sprite.__init__(self, game, x - 10, y - 20, width, sprite_position, name, type, screen_width, screen_height)
         
 
     def play_sound(self, type):
@@ -24,5 +27,10 @@ class Car(Sprite):
         if type == "collision":
             self.game.play_sound("explosion")
 
-    def lose_life(self):
+    def crashed(self):
         self.lives -= 1
+        pygame.mixer.music.pause()
+        pygame.time.delay(300)
+        pygame.mixer.music.play()
+        if self.lives == 0:
+           pygame.mixer.music.stop() 

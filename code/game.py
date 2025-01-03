@@ -143,14 +143,14 @@ class Game:
                     # print('car collided with obstacle1')
                     if self.car.lives == 3:
                         self.life1.kill_sprite()
-                        self.car.lives = 2
+                        self.car.crashed()
                         self.obstacle1.sprite_y += self.screen_height
                         self.play_sound('crash')
                         self.obstacle1.collided == True
 
                     elif self.car.lives == 2:
                         self.life2.kill_sprite()
-                        self.car.lives = 1
+                        self.car.crashed()
                         self.obstacle1.sprite_y += self.screen_height
                         self.play_sound('crash')
                         self.obstacle1.collided == True
@@ -158,7 +158,7 @@ class Game:
 
                     elif self.car.lives == 1:
                         self.life3.kill_sprite()
-                        self.car.lives  = 0
+                        self.car.crashed()
                         self.obstacle1.sprite_y += self.screen_height
                         self.play_sound('crash')
                         self.obstacle1.collided == True
