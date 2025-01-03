@@ -4,6 +4,7 @@ from rocket import *
 from divider import *
 from obstacle import *
 from life import *
+from leaderboard import *
 
 sprite_box = 64
 speed = 100000
@@ -251,4 +252,22 @@ class Game:
 
 
     def game_over(self):
+        pickled_score = pickle.dumps(score)
+        unpickled_score = pickle.loads(pickled_score)
+
+
+        with open('leaderscores.txt', 'a') as some_scores:
+            some_scores.write(unpickled_score.scores)
+        with open('leaderscores.txt', 'r') as reader:
+            print(reader.read())
+
         print("GAME OVER")
+
+
+        score = Leaderboard()
+
+
+        # Unpickle object
+        # insert new key
+        # show high score
+        # pickle object
