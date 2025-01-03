@@ -4,6 +4,7 @@ from rocket import *
 from divider import *
 from obstacle import *
 from life import *
+from stage import *
 
 sprite_box = 64
 speed = 100000
@@ -252,3 +253,7 @@ class Game:
 
     def game_over(self):
         print("GAME OVER")
+
+        # stage = Stage()
+        # stage.game_over(self.window)
+        # continue
