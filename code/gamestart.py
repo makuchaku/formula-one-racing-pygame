@@ -23,10 +23,8 @@ class GameStart:
         label_surface = pygame.font.Font(None, input_box_height).render("Enter your name:", True, white_color)
         self.screen.blit(label_surface, (input_box_x, input_box_y-label_surface.get_height()-5))
 
-        navi_blue_color = (59,59,59)
-
         # Draw input box
-        input_box = TextInputBox(self.screen, input_box_x, input_box_y, input_box_width, input_box_height,text_color=navi_blue_color)
+        input_box = TextInputBox(self.screen, input_box_x, input_box_y, input_box_width, input_box_height)
         input_box.draw()
 
         while True:
