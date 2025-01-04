@@ -37,7 +37,7 @@ class Game:
         pygame.mixer.init()
         self.car = None
         # self.background_image = pygame.image.load('./assets/road.jpg')
-        self.background_image = pygame.transform.scale(pygame.image.load('./assets/road.jpg'), (self.screen_width, self.screen_height))
+        self.background_image = pygame.transform.scale(pygame.image.load('./assets/road1.jpg'), (self.screen_width, self.screen_height))
 
  
     # Creates all sprites

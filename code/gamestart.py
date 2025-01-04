@@ -1,6 +1,6 @@
 import pygame
 import sys
-import pygame_gui
+from controls.textinputbox import TextInputBox
 
 class GameStart:
     def __init__(self, screen_width, screen_height):
@@ -9,44 +9,33 @@ class GameStart:
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = pygame.display.set_mode((self.screen_width, screen_height))
-        self.background_image = pygame.transform.scale(pygame.image.load('./assets/road.jpg'), (screen_width, screen_height))
-        self.clock = pygame.time.Clock()
-        self.ui_manager = pygame_gui.UIManager((screen_width, screen_height))
-        self.create_text_input()
+        self.background_image = pygame.transform.scale(pygame.image.load('./assets/road1.jpg'), (screen_width, screen_height))
+        self.screen.blit(self.background_image, (0, 0))
 
-    def create_text_input(self):   
-        text_input_width = 500
-        text_input_height = 50
-        text_input_x = int((self.screen_width - text_input_width)/2)
-        text_input_y = (self.screen_height/2) - text_input_height
-        self.text_input = pygame_gui.elements.UITextEntryLine(
-            relative_rect = pygame.Rect((text_input_x, text_input_y), (text_input_width, text_input_height)),
-            manager = self.ui_manager,
-            object_id = "#main_text_entry",
-            placeholder_text = "Write your name here and press Enter!")
-        self.text_input.set_text_length_limit(50)
-                                                                              
     def get_user_name(self):
+        input_box_width = self.screen_width * 0.7
+        input_box_height = 40
+        input_box_x = (self.screen_width - input_box_width) / 2
+        input_box_y = (self.screen_height - input_box_height) / 2
+        white_color = (255, 255, 255)
+
+        # Draw label
+        label_surface = pygame.font.Font(None, input_box_height).render("Enter your name:", True, white_color)
+        self.screen.blit(label_surface, (input_box_x, input_box_y-label_surface.get_height()-5))
+
+        navi_blue_color = (59,59,59)
+
+        # Draw input box
+        input_box = TextInputBox(self.screen, input_box_x, input_box_y, input_box_width, input_box_height,text_color=navi_blue_color)
+        input_box.draw()
+
         while True:
-            ui_refresh_rate = self.clock.tick(60) / 1000
             for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.text_input.focus()
-
-                if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                if event.type == pygame.QUIT :
                     pygame.quit()
-                    sys.exit
-
-                if (event.type == pygame_gui.UI_TEXT_ENTRY_FINISHED and event.ui_object_id == "#main_text_entry"):
-                    if event.text.strip() == "":
-                        self.text_input.unfocus()
-                    else:
-                        return event.text
-
-                self.ui_manager.process_events(event)
-
-            self.ui_manager.update(ui_refresh_rate)
-            self.screen.blit(self.background_image, (0, 0))
-            self.ui_manager.draw_ui(self.screen)
-            pygame.display.update()
-
+                    sys.exit()
+                elif event.type == pygame.USEREVENT and event.action == 'quit':
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.USEREVENT and event.action == 'enter':
+                    return event.text
