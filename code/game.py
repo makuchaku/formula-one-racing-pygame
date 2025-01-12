@@ -141,6 +141,9 @@ class Game:
                         print(self.car.lives)
                         self.game_over()
 
+
+                        return
+                   
                     self.obstacle1.collided = True
                     if self.obstacle1.sprite_x == self.obstacle2.sprite_x and self.obstacle1.sprite_y == self.obstacle2.sprite_y:
                         self.obstacle2.sprite_y = self.screen_height
@@ -159,7 +162,8 @@ class Game:
                         self.life3.kill_sprite()
                         print(self.car.lives)
                         self.game_over()
-
+                        return
+                   
                     self.obstacle2.collided = True
                     self.obstacle2.sprite_y = self.screen_height
                     self.car.crashed()
@@ -198,7 +202,9 @@ class Game:
     
     def play_sound(self, sound_name):
         pygame.mixer.Sound('./assets/' + sound_name + '.wav').play()
-
+    
+    def stop_sound(self):
+        pygame.mixer.music.stop()
     
     def show_message(self, message, spot, size):
         # sets the font and color
@@ -218,7 +224,6 @@ class Game:
 
     def game_over(self):
         print("GAME OVER")
-
-        # stage = Stage()
-        # stage.game_over(self.window)
-        # continue
+        self.stop_sound()
+        stage = Stage()
+        stage.game_over(self.window)
