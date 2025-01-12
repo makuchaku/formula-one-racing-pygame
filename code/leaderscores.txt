@@ -1,1 +1,1 @@
-qwertyuioplkjhgfdsazxcvbn
+{"m": 100, "mj": 100}

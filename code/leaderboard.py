@@ -1,5 +1,4 @@
-# pickling.py
-import pickle
+import json
 
 class ScoreLeaderboard:
     def __init__(self):
@@ -8,18 +7,26 @@ class ScoreLeaderboard:
 
     
     def save_score(self, name, score_player):
-        with open(self.filename, 'rb') as pickle_file:
-            self.scores = pickle.load(pickle_file)
-        # with open(self.filename, 'r') as reader:
-            # Read and print the entire file line by line
-            # data = reader.read()
-            # print(data)
-            # self.scores = pickle.load(data)
-            if self.scores == None:
-                self.scores = {}
-            self.scores[name] = score_player
-            print(self.scores)
-        
-        # dumped_score = pickle.dump(self.scores)
-        # with open(self.filename, 'w') as writer:
-        #     writer.write(dumped_score)
+        # Read file
+        file = open(self.filename, "rb")
+        data = file.read()
+
+        # If no data, initalize scores as empty dict, else load dict from file
+        if len(data) == 0:
+            self.scores = {}
+        else:
+            self.scores = json.loads(data)
+        file.close()
+
+        # Save score to file
+        self.scores[name] = score_player
+        file = open(self.filename, "w")
+        file.write(json.dumps(self.scores))
+        file.close()
+
+        return self.scores
+
+
+
+# s = ScoreLeaderboard()
+# s.save_score("mj", 100)
