@@ -5,7 +5,7 @@ from controls.textinputbox import TextInputBox
 class GameStart:
     def __init__(self, screen_width, screen_height):
         pygame.init()
-        pygame.display.set_caption("Your game starts here...")
+        pygame.display.set_caption("F1 Racing Stimulator")
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = pygame.display.set_mode((self.screen_width, screen_height))
