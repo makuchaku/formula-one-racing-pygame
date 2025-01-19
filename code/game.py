@@ -220,7 +220,7 @@ class Game:
 
     def game_over(self):
         score = ScoreLeaderboard()
-        score.save_score(self.name.capitalize(), self.car.distance_travelled)
+        the_leaderboard = score.save_score(self.name.capitalize(), self.car.distance_travelled)
         print("GAME OVER")
 
         # stage = Stage()
