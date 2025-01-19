@@ -226,4 +226,4 @@ class Game:
         print("GAME OVER")
         self.stop_sound()
         stage = Stage()
-        stage.game_over(self.window)
+        stage.game_over(self.window, self.name, self.car.distance_travelled)
