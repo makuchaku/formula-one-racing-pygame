@@ -1,10 +1,12 @@
 import pygame
+import pickle
 from car import *
 from rocket import *
 from divider import *
 from obstacle import *
 from life import *
 from stage import *
+from leaderboard import *
 
 sprite_box = 64
 speed = 100000
@@ -223,6 +225,8 @@ class Game:
 
 
     def game_over(self):
+        score = ScoreLeaderboard()
+        the_leaderboard = score.save_score(self.name.capitalize(), self.car.distance_travelled)
         print("GAME OVER")
         self.stop_sound()
         stage = Stage()
