@@ -19,7 +19,6 @@ dividers = []
 lives = []
 obstacle_start_y = 10
 
-
 class Game:
 
     def __init__(self, player_name, screen_width, screen_height):
@@ -114,12 +113,14 @@ class Game:
 
             # If obstacle hits the bottom of screen, start it from the top again
             if self.obstacle1.sprite_y == self.screen_height:
-                self.obstacle1.sprite_y = obstacle_start_y
+                self.obstacle1.sprite_y = self.obstacle1.obstacle_start_y
+                self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
             else:
                 self.obstacle1.sprite_y += 1
 
             if self.obstacle2.sprite_y == self.screen_height:
-                self.obstacle2.sprite_y = obstacle_start_y
+                self.obstacle2.sprite_y =self.obstacle2.obstacle_start_y
+                self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
             else:
                 self.obstacle2.sprite_y += 1
 
@@ -149,7 +150,6 @@ class Game:
                     self.obstacle1.collided = True
                     if self.obstacle1.sprite_x == self.obstacle2.sprite_x and self.obstacle1.sprite_y == self.obstacle2.sprite_y:
                         self.obstacle2.sprite_y = self.screen_height
-                    self.obstacle1.sprite_y = self.screen_height
                     self.car.crashed()
                     self.play_sound('crash')
 
@@ -167,7 +167,6 @@ class Game:
                         return
                    
                     self.obstacle2.collided = True
-                    self.obstacle2.sprite_y = self.screen_height
                     self.car.crashed()
                     self.play_sound('crash')
 
@@ -177,14 +176,22 @@ class Game:
                 if divider.sprite_y == self.screen_height:
                     divider.sprite_y = 0
 
-            if self.obstacle1.sprite_y == self.screen_height:
+
+
+            if self.obstacle1.collided == True:
                 self.obstacle1.collided = False
-                self.obstacle1.sprite_y = obstacle_start_y
+                self.obstacle2.obstacle_start_y = self.obstacle2.obstacle_start_y + 100
+                self.obstacle1.obstacle_start_y = self.obstacle1.obstacle_start_y + 100
+                self.obstacle1.sprite_y = self.obstacle1.obstacle_start_y
+                self.obstacle2.sprite_y = self.obstacle2.obstacle_start_y
                 self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
 
-            if self.obstacle2.sprite_y == self.screen_height:
+            if self.obstacle2.collided == True:
                 self.obstacle2.collided = False
-                self.obstacle2.sprite_y = obstacle_start_y
+                self.obstacle2.obstacle_start_y = self.obstacle2.obstacle_start_y + 100
+                self.obstacle1.obstacle_start_y = self.obstacle1.obstacle_start_y + 100
+                self.obstacle2.sprite_y = self.obstacle2.obstacle_start_y
+                self.obstacle1.sprite_y = self.obstacle1.obstacle_start_y
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
 
             # Draw text
