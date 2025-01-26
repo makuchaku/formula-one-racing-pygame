@@ -44,9 +44,11 @@ class Game:
         self.background_image = pygame.transform.scale(pygame.image.load('./assets/road1.jpg'), (self.screen_width, self.screen_height))
         # initialize joy stick
         pygame.joystick.init()
-        # note: we only support one joystick for now
-        self.joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
- 
+        self.joyCount = pygame.joystick.get_count()
+        if (self.joyCount > 0):
+            # note: we only support one joystick for now
+            self.joysticks = [pygame.joystick.Joystick(x) for x in range(self.joyCount)]
+
     # Creates all sprites
     def create_sprites(self):
         self.car = Car(self, 368, (self.screen_height-sprite_box), 1, self.screen_width, self.screen_height)
@@ -85,14 +87,24 @@ class Game:
             # Check if we need to quit
             if event.type == pygame.QUIT:
                 break
-            # Check for joy-stick button presses
-            elif event.type == pygame.JOYBUTTONDOWN:
-                if event.button == JOYSTICK_RIGHT and self.car.sprite_x + car_move_sprite < self.screen_width:
-                    self.car.play_sound("no_move")
-                    self.car.move_x(car_move_sprite)
-                elif event.button == JOYSTICK_LEFT and self.car.sprite_x - car_move_sprite > 0:
-                    self.car.play_sound("no_move")
-                    self.car.move_x(-car_move_sprite)
+
+            if self.joyCount > 0:
+                # Check for joy-stick button presses
+                if event.type == pygame.JOYBUTTONDOWN:
+                    if event.button == JOYSTICK_RIGHT and self.car.sprite_x + car_move_sprite < self.screen_width:
+                        self.car.play_sound("no_move")
+                        self.car.move_x(car_move_sprite)
+                    elif event.button == JOYSTICK_LEFT and self.car.sprite_x - car_move_sprite > 0:
+                        self.car.play_sound("no_move")
+                        self.car.move_x(-car_move_sprite)
+            else:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT and self.car.sprite_x + car_move_sprite < self.screen_width:
+                        self.car.play_sound("no_move")
+                        self.car.move_x(car_move_sprite)
+                    elif event.key == pygame.K_LEFT  and self.car.sprite_x - car_move_sprite > 0:
+                        self.car.play_sound("no_move")
+                        self.car.move_x(-car_move_sprite)
 
             # Cleans the screen
             ## ONLY DO THIS BEFORE RENDERING ALL SPRITES
