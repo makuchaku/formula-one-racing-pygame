@@ -11,6 +11,9 @@ from leaderboard import *
 sprite_box = 64
 speed = 100000
 car_move_sprite = 248
+# for Nintendo Joy Cons, below are the button values.
+JOYSTICK_LEFT = 1
+JOYSTICK_RIGHT = 2
 
 
 tanks = []
@@ -39,7 +42,10 @@ class Game:
         self.car = None
         # self.background_image = pygame.image.load('./assets/road.jpg')
         self.background_image = pygame.transform.scale(pygame.image.load('./assets/road1.jpg'), (self.screen_width, self.screen_height))
-
+        # initialize joy stick
+        pygame.joystick.init()
+        # note: we only support one joystick for now
+        self.joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
  
     # Creates all sprites
     def create_sprites(self):
@@ -79,13 +85,12 @@ class Game:
             # Check if we need to quit
             if event.type == pygame.QUIT:
                 break
-
-            # Check for movement
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT and self.car.sprite_x + car_move_sprite < self.screen_width:
+            # Check for joy-stick button presses
+            elif event.type == pygame.JOYBUTTONDOWN:
+                if event.button == JOYSTICK_RIGHT and self.car.sprite_x + car_move_sprite < self.screen_width:
                     self.car.play_sound("no_move")
                     self.car.move_x(car_move_sprite)
-                elif event.key == pygame.K_LEFT and self.car.sprite_x - car_move_sprite > 0:
+                elif event.button == JOYSTICK_LEFT and self.car.sprite_x - car_move_sprite > 0:
                     self.car.play_sound("no_move")
                     self.car.move_x(-car_move_sprite)
 
