@@ -21,7 +21,7 @@ class ScoreLeaderboard:
 
         # Save score to file
         self.scores[name] = score_player
-        dict(sorted(self.scores.items(), key=lambda x: x[1], reverse=True))
+        self.scores = dict(sorted(self.scores.items(), key=lambda x: x[1], reverse=True))
         file = open(self.filename, "w")
         file.write(json.dumps(self.scores))
         file.close()
