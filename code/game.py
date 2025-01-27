@@ -115,11 +115,11 @@ class Game:
             self.car.draw()
 
             # Make game successively harder after each multiple of 500 in score
-            if self.car.distance_travelled % 10 == 0:
+            if self.car.distance_travelled % 5 == 0:
                 print("Increasing game speed...")
                 # change reset point of the obstacle y axis
-                self.obstacle1.obstacle_start_y += 1
-                self.obstacle2.obstacle_start_y += 1
+                self.obstacle1.obstacle_start_y += 5
+                self.obstacle2.obstacle_start_y += 5
 
 
             # Draw obstacles
@@ -138,13 +138,13 @@ class Game:
 
             # If obstacle hits the bottom of screen, start it from the top again
             if self.obstacle1.sprite_y == self.screen_height:
-                self.obstacle1.sprite_y = self.obstacle1.obstacle_start_y
+                self.obstacle1.sprite_y = self.obstacle1.obstacle_start_y + random.randint(5, 10)
                 self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
             else:
                 self.obstacle1.sprite_y += 1
 
             if self.obstacle2.sprite_y == self.screen_height:
-                self.obstacle2.sprite_y =self.obstacle2.obstacle_start_y
+                self.obstacle2.sprite_y =self.obstacle2.obstacle_start_y + random.randint(5, 10)
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
             else:
                 self.obstacle2.sprite_y += 1
