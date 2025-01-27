@@ -114,6 +114,14 @@ class Game:
             # Set up all positions
             self.car.draw()
 
+            # Make game successively harder after each multiple of 500 in score
+            if self.car.distance_travelled % 10 == 0:
+                print("Increasing game speed...")
+                # change reset point of the obstacle y axis
+                self.obstacle1.obstacle_start_y += 1
+                self.obstacle2.obstacle_start_y += 1
+
+
             # Draw obstacles
             self.obstacle1.draw()
             self.obstacle2.draw()
