@@ -20,7 +20,7 @@ tanks = []
 rockets = []
 dividers = []
 lives = []
-obstacle_start_y = 10
+obstacle_start_y = 50
 
 class Game:
 
