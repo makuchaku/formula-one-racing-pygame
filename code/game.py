@@ -138,13 +138,13 @@ class Game:
 
             # If obstacle hits the bottom of screen, start it from the top again
             if self.obstacle1.sprite_y == self.screen_height:
-                self.obstacle1.sprite_y = self.obstacle1.obstacle_start_y + random.randint(5, 10)
+                self.obstacle1.sprite_y = self.obstacle1.obstacle_start_y + random.randint(25, 100)
                 self.obstacle1.sprite_x = self.obstacle1.choose_random_x()
             else:
                 self.obstacle1.sprite_y += 1
 
             if self.obstacle2.sprite_y == self.screen_height:
-                self.obstacle2.sprite_y =self.obstacle2.obstacle_start_y + random.randint(5, 10)
+                self.obstacle2.sprite_y =self.obstacle2.obstacle_start_y + random.randint(25, 100)
                 self.obstacle2.sprite_x = self.obstacle2.choose_random_x()
             else:
                 self.obstacle2.sprite_y += 1
