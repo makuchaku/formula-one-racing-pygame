@@ -5,12 +5,13 @@ from controls.textinputbox import TextInputBox
 class GameStart:
     def __init__(self, screen_width, screen_height):
         pygame.init()
-        pygame.display.set_caption("F1 Racing Stimulator")
+        pygame.display.set_caption("F1 Racing Simulator")
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = pygame.display.set_mode((self.screen_width, screen_height))
         self.background_image = pygame.transform.scale(pygame.image.load('./assets/road1.jpg'), (screen_width, screen_height))
         self.screen.blit(self.background_image, (0, 0))
+        pygame.mixer.Sound('assets/startsound.mp3').play()
 
     def get_user_name(self):
         input_box_width = self.screen_width * 0.7
