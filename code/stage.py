@@ -46,6 +46,9 @@ class Stage:
 
 	def game_over(self, window, a_score, some_leaderboard):
 		self.gold = (3, 11, 255)
+		self.red = (255, 0, 0)
+		self.orange = (0, 185, 0)
+		
 		self.font_50 = pygame.font.Font(None, 50)
 		self.font_100 = pygame.font.Font('./assets/pixelify.ttf', 75)
 
@@ -58,9 +61,9 @@ class Stage:
 			display_tet = str(round(a_score))
 			display_of_tet = str("Leaderboard:")
 
-			self.displa_screen = self.font_100.render(display_text, True, self.gold)
-			self.display_screeny = self.font_50.render(display_txt, True, self.gold)
-			self.display_scree = self.font_50.render(display_tet, True, self.gold) 
+			self.displa_screen = self.font_100.render(display_text, True, self.red)
+			self.display_screeny = self.font_50.render(display_txt, True, self.orange)
+			self.display_scree = self.font_50.render(display_tet, True, self.orange) 
 			self.a_disp = self.font_50.render(display_of_tet, True, self.gold)
 			# self.a_leader = self.font.render(leader, True, self.gold)
 
@@ -73,7 +76,7 @@ class Stage:
 			# window.blit(('3rd:', int(some_leaderboard[2])), 50, 300)
 			counter = 1
 			for key, value in some_leaderboard.items():
-				if counter == 4:
+				if counter == 9:
 					break
 				leader = str(str(counter) +' - '+ str(key) + ' : '+ str(round(value)))
 				self.a_leader = self.font_50.render(leader, True, self.gold)
