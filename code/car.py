@@ -1,6 +1,9 @@
 import pygame
 from sprite import *
 from game import *
+import threading
+
+
 
 # Car sprite
 class Car(Sprite):
@@ -14,9 +17,11 @@ class Car(Sprite):
         self.height = 84
         self.texture =  pygame.transform.scale(pygame.image.load('./assets/car1.png'), (self.width, self.height))
         pygame.mixer.music.load('assets/car_racing_sound.mp3')
-        pygame.mixer.music.play(-1, 0.0)
+        threading.Thread(target=self.play_gameplay_music).start()
         Sprite.__init__(self, game, x -10, y - 20, self.width, self.height, sprite_position, name, type, screen_width, screen_height)
         
+    def play_gameplay_music(self):
+        pygame.mixer.music.play(-1, 0.0)
 
     def play_sound(self, type):
         if type == "no_move":
